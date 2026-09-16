@@ -1,0 +1,1735 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<!-- 외부 호스팅 이미지 403 차단 방지 -->
+<meta content="no-referrer" name="referrer"/>
+<title>ARCS Lab | Advanced Radio-Frequency Integrated Circuit and System Design Lab.</title>
+<!-- 구글 사이트 정품 파비콘 -->
+<link href="https://lh3.googleusercontent.com/sitesv/AG8ngQXbK5wN_YyIXjcpWCRwUJNdeVB4dgTYy1mb7Qt4juu-yHO5SrFjrCkj7tDsTaokim1-Gk16MqiApSMiP2YlAV3-kt4x3ipz_WTRAazgXpXlBBXCxpAVpw2gJfWvzCTQ-grWEe3D4eMLHmpA7VQ99OskEEQ7zi5CIVPxgtXStl51rrxEcfCxxA5nlErBd1VhoEXc2SiqxD-DL_y62zrMDNA" rel="icon"/>
+<!-- 프리텐다드 폰트 CDN -->
+<link as="style" crossorigin="" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css" rel="stylesheet"/>
+<style>
+        :root {
+            --bg-base: #f4f7fb;
+            --surface: #ffffff;
+            --border: #e2e8f0;
+            --border-card: #e6edf7;
+            --primary: #0a1b33;
+            /* 쨍하고 깊이감 있는 정통 다저블루 */
+            --dodger-blue: #1e90ff;         /* Dodger Blue */
+            --dodger-vivid: #0d6efd;        /* Deep Electric Blue */
+            --dodger-dark: #0056cc;         /* Solid Dark Dodger */
+            --dodger-bg: #edf5ff;           /* Light Dodger Tint */
+            --text-main: #000000;
+            --text-muted: #000000;
+            --shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 8px 24px rgba(30, 144, 255, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Pretendard Variable', -apple-system, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-base);
+            line-height: 1.75;
+            word-break: keep-all;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* 상단 네비게이션: 블러 및 네온 없음 */
+        header {
+            position: sticky; top: 0; z-index: 1000;
+            background: #ffffff;
+            border-top: 4px solid var(--dodger-blue);
+            border-bottom: 1.5px solid var(--border);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+        .nav-inner {
+            max-width: 1240px; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            height: 70px;
+        }
+        .logo-wrap { display: flex; align-items: center; gap: 12px; cursor: pointer; flex-shrink: 0; }
+        .logo-img { height: 42px; width: auto; }
+        .logo-text { font-size: 1.35rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
+        .logo-text span { color: var(--dodger-blue); }
+
+        .nav-menu { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+        .nav-item { position: relative; }
+        .nav-btn {
+            background: none; border: none; font-family: inherit;
+            font-size: 0.94rem; font-weight: 700; color: #000000;
+            padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: all 0.18s ease;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .nav-btn:hover { color: var(--dodger-vivid); background: var(--dodger-bg); }
+        .nav-btn.active { color: #ffffff; background: var(--dodger-blue); }
+
+        /* 드롭다운 메뉴 */
+        .dropdown {
+            position: absolute; top: 100%; left: 0;
+            background: #ffffff; border: 1.5px solid var(--border);
+            border-radius: 12px; box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+            padding: 8px; min-width: 160px; display: none; flex-direction: column; gap: 4px;
+            z-index: 100;
+        }
+        .nav-item:hover .dropdown { display: flex; }
+        .dropdown button {
+            background: none; border: none; font-family: inherit;
+            text-align: left; padding: 10px 14px; font-size: 0.92rem; font-weight: 700;
+            color: var(--text-main); border-radius: 6px; cursor: pointer; transition: 0.15s;
+        }
+        .dropdown button:hover { background: var(--dodger-bg); color: var(--dodger-vivid); }
+
+        /* 페이지 컨테이너 */
+        .page-view { display: none; max-width: 1140px; margin: 40px auto 80px auto; padding: 0 20px; }
+        .page-view.active { display: block; animation: fadeIn 0.2s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 공통 헤딩 및 카드 */
+        .view-title { 
+            font-size: 2.3rem; font-weight: 800; color: var(--primary); 
+            text-align: center; margin-bottom: 28px; letter-spacing: -0.5px; 
+        }
+        .divider { width: 100%; height: 1px; background: var(--border); margin: 30px 0; }
+        .card { 
+            background: #ffffff; border: 1px solid var(--border); border-radius: 16px; 
+            padding: 34px; box-shadow: var(--shadow); margin-bottom: 24px; 
+        }
+
+        /* AXIS 연구실 스타일 융합 히어로 섹션 */
+        .bento-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+        .axis-hero-card {
+            grid-column: 1 / -1; text-align: center; padding: 64px 30px;
+            background-color: #071426;
+            background-image:
+                linear-gradient(90deg, rgba(4, 14, 29, 0.92) 0%, rgba(4, 14, 29, 0.72) 42%, rgba(4, 14, 29, 0.30) 100%),
+                url('images/hero_background.webp');
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #18385d;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(30, 144, 255, 0.05);
+            position: relative;
+        }
+        .axis-badge {
+            display: inline-block; padding: 6px 16px; background: #ffffff;
+            border: 1.5px solid var(--dodger-blue); border-radius: 30px;
+            font-size: 0.82rem; font-weight: 800; color: var(--dodger-vivid);
+            letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 22px;
+        }
+        .axis-hero-title {
+            font-size: 2.8rem; font-weight: 900; line-height: 1.25; margin-bottom: 18px;
+            color: #ffffff; letter-spacing: -1px; text-transform: uppercase;
+            text-shadow: 0 2px 14px rgba(0,0,0,.28);
+        }
+        .axis-hero-title .highlight { color: var(--dodger-blue); }
+        .axis-hero-title .arcs-initial {
+            color: #2f9cff;
+            font-weight: 950;
+            text-shadow: 0 1px 0 rgba(4,25,58,.85), 0 2px 3px rgba(4,25,58,.55);
+            filter: none;
+        }
+        .home-info-card { min-height: 560px; padding: 38px; }
+        #latest-news.home-info-card { min-height: 0; }
+        .home-info-card > .sec-head { font-size: 1.55rem; }
+        .home-info-card > div:not(.sec-head) { font-size: 1.02rem !important; }
+        .home-info-card p { margin-bottom: 8px; }
+        .axis-hero-sub { font-size: 1.25rem; font-weight: 700; color: #e6f1ff; margin-bottom: 12px; text-shadow: 0 1px 8px rgba(0,0,0,.35); }
+        .axis-hero-p { font-size: 1.05rem; color: #d6e5f5; line-height: 1.8; max-width: 820px; margin: 0 auto 32px auto; text-shadow: 0 1px 8px rgba(0,0,0,.35); }
+        .axis-actions { display: flex; gap: 14px; justify-content: center; align-items: center; margin-bottom: 34px; flex-wrap: wrap; }
+        .btn-explore {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--dodger-blue); color: #ffffff; font-size: 0.98rem; font-weight: 800;
+            padding: 13px 28px; border-radius: 10px; border: none; cursor: pointer;
+            box-shadow: 0 4px 14px rgba(30, 144, 255, 0.35); transition: all 0.2s ease;
+        }
+        .btn-explore:hover { background: var(--dodger-dark); transform: translateY(-2px); }
+        .btn-join {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #ffffff; color: var(--primary); font-size: 0.98rem; font-weight: 800;
+            padding: 13px 26px; border-radius: 10px; border: 1.5px solid var(--border);
+            cursor: pointer; transition: all 0.2s ease;
+        }
+        .btn-join:hover { border-color: var(--dodger-blue); color: var(--dodger-blue); background: var(--dodger-bg); transform: translateY(-2px); }
+        .axis-chips-wrap { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .axis-chip {
+            font-size: 0.85rem; font-weight: 700; color: #000000;
+            background: #ffffff; border: 1.5px solid var(--border);
+            padding: 6px 14px; border-radius: 20px; transition: 0.2s;
+        }
+        .axis-chip:hover { border-color: var(--dodger-blue); color: var(--dodger-blue); background: var(--dodger-bg); }
+
+        /* 섹션 헤더 */
+        .sec-head { 
+            font-size: 1.35rem; font-weight: 800; color: var(--primary); margin-bottom: 22px; 
+            display: flex; align-items: center; gap: 10px; 
+        }
+        .sec-head::before { 
+            content: ""; width: 5px; height: 20px; background: var(--dodger-blue); border-radius: 3px; 
+        }
+
+        /* 프로필 스타일 */
+        .profile-row { display: flex; gap: 30px; align-items: flex-start; margin-bottom: 24px; }
+        .profile-img { width: 180px; border-radius: 12px; border: 1.5px solid var(--border); object-fit: cover; }
+        .profile-info h3 { font-size: 1.45rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+        .profile-info p { margin-bottom: 6px; font-size: 1rem; }
+        .profile-links a { color: var(--dodger-vivid); font-weight: 700; text-decoration: underline; margin-right: 8px; }
+
+        /* CHIP GALLERY 카드 */
+        .chip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+        .chip-card { 
+            background: #ffffff; border: 1.5px solid var(--border); border-radius: 14px; 
+            overflow: hidden; box-shadow: var(--shadow); transition: all 0.2s ease; 
+        }
+        .chip-card:hover { transform: translateY(-4px); border-color: var(--dodger-blue); box-shadow: var(--shadow-hover); }
+        .chip-img-wrap { width: 100%; height: 220px; background: #f8fafc; border-bottom: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; }
+        .chip-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+        /* High Speed Active Sampler: schematic crop removed, chip area fills the card */
+        .chip-img-wrap.chip-only { overflow: hidden; }
+        .chip-img-wrap.chip-only img { width: 100%; max-width: none; height: 100%; object-fit: contain; object-position: center; transform: none; background: #f8fafc; }
+        .chip-desc { padding: 18px; text-align: center; }
+        .chip-title { font-size: 0.98rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; line-height: 1.5; }
+        .chip-badge { 
+            display: inline-block; padding: 4px 12px; background: var(--dodger-bg); 
+            color: var(--dodger-dark); font-size: 0.88rem; font-weight: 800; border-radius: 20px; 
+            border: 1px solid #c7dcf8;
+        }
+
+        /* AXIS 스타일 아카데믹 카드 레이아웃 (논문, 특허, 프로젝트) */
+        .axis-pub-header { margin-bottom: 24px; }
+        .axis-pub-meta { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 16px; }
+        .axis-pub-meta strong { color: var(--primary); font-size: 1.4rem; font-weight: 800; margin-right: 6px; }
+        .axis-filter-bar { display: flex; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
+        .axis-filter-btn {
+            padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 700;
+            border: 1.5px solid var(--border); background: #ffffff; color: var(--text-muted);
+            cursor: pointer; transition: all 0.18s ease;
+        }
+        .axis-filter-btn.active {
+            background: var(--dodger-blue); color: #ffffff; border-color: var(--dodger-blue);
+        }
+
+        .axis-year-row { display: grid; grid-template-columns: 100px 1fr; gap: 24px; margin-bottom: 36px; }
+        .axis-year-label { font-size: 1.75rem; font-weight: 900; color: var(--dodger-vivid); line-height: 1.2; }
+        .axis-cards-col { display: flex; flex-direction: column; gap: 14px; }
+
+        .axis-item-card {
+            background: #ffffff; border: 1.5px solid var(--border-card); border-radius: 12px;
+            padding: 18px 22px; transition: all 0.2s ease;
+        }
+        .axis-item-card:hover {
+            border-color: var(--dodger-blue); transform: translateX(3px); box-shadow: 0 4px 16px rgba(30, 144, 255, 0.08);
+        }
+        .axis-item-top { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+        .axis-tag {
+            display: inline-block; padding: 2px 10px; font-size: 0.78rem; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.5px; border-radius: 6px;
+            color: var(--dodger-dark); background: var(--dodger-bg); border: 1.5px solid #bddbff;
+        }
+        .axis-item-num { font-weight: 800; color: var(--dodger-vivid); font-size: 1.05rem; }
+        .axis-item-authors { font-size: 0.96rem; color: var(--text-main); font-weight: 500; }
+        .axis-item-title { font-size: 1.08rem; font-weight: 800; color: var(--primary); line-height: 1.5; margin-bottom: 6px; }
+        .axis-item-venue { font-size: 0.92rem; color: var(--text-muted); font-style: normal; }
+        .axis-item-venue a { color: var(--dodger-vivid); font-weight: 800; text-decoration: underline; margin-left: 6px; }
+
+        /* TEACHING 아코디언 */
+        details.teaching-box {
+            border: 1.5px solid var(--border); border-radius: 12px; margin-bottom: 14px; background: #ffffff; overflow: hidden;
+        }
+        details.teaching-box summary {
+            padding: 16px 20px; font-weight: 800; font-size: 1.12rem; cursor: pointer; background: #f8fafc; list-style: none; display: flex; justify-content: space-between; align-items: center;
+        }
+        details.teaching-box summary::after {
+            content: "▼"; font-size: 0.85rem; color: var(--dodger-blue); transition: transform 0.2s;
+        }
+        details[open].teaching-box summary {
+            background: var(--dodger-bg); color: var(--dodger-dark); border-bottom: 1.5px solid #c7dcf8;
+        }
+        details[open].teaching-box summary::after { transform: rotate(180deg); }
+        details.teaching-box .content { padding: 20px 24px; }
+        details.teaching-box ul { padding-left: 20px; line-height: 2; list-style-type: square; }
+
+        /* LAB GALLERY 카드 */
+        .gallery-item {
+            display: flex; gap: 26px; align-items: center; margin-bottom: 30px; background: #ffffff; 
+            border: 1.5px solid var(--border); border-radius: 16px; padding: 24px; box-shadow: var(--shadow);
+        }
+        .gallery-item img {
+            width: 50%; max-width: 480px; border-radius: 12px; object-fit: cover; border: 1px solid var(--border);
+        }
+        .gallery-desc h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 12px; color: var(--primary); }
+        .gallery-desc p { font-size: 1rem; font-weight: 700; line-height: 1.8; }
+
+        /* 푸터 */
+        footer { border-top: 2px solid var(--border); background: #ffffff; padding: 40px 0; text-align: center; font-size: 0.9rem; color: var(--text-muted); }
+
+        /* 모바일 네비게이션 */
+        .mobile-menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #fff;
+            color: var(--primary);
+            font-size: 1.35rem;
+            font-weight: 800;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 900px) {
+            .nav-inner {
+                height: auto;
+                min-height: 64px;
+                padding: 10px 16px;
+                position: relative;
+            }
+
+            .logo-img { height: 36px; }
+            .logo-text { font-size: 1.05rem; }
+            .mobile-menu-toggle { display: flex; }
+
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: calc(100% + 1px);
+                left: 0;
+                right: 0;
+                padding: 10px 14px 14px;
+                background: #fff;
+                border-bottom: 1px solid var(--border);
+                box-shadow: 0 10px 24px rgba(0,0,0,.08);
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+                flex-wrap: nowrap;
+                z-index: 1100;
+            }
+
+            .nav-menu.mobile-open { display: flex; }
+            .nav-item { width: 100%; }
+
+            .nav-btn {
+                width: 100%;
+                justify-content: space-between;
+                text-align: left;
+                padding: 12px 14px;
+                font-size: 1rem;
+            }
+
+            .dropdown {
+                position: static;
+                width: 100%;
+                min-width: 0;
+                display: none;
+                border: 0;
+                border-left: 2px solid var(--dodger-blue);
+                border-radius: 0 8px 8px 0;
+                box-shadow: none;
+                padding: 4px 0 4px 8px;
+                margin: 0 0 4px 8px;
+                gap: 2px;
+            }
+
+            .nav-item:hover .dropdown { display: none; }
+            .nav-item.open .dropdown { display: flex; }
+
+            .dropdown button {
+                width: 100%;
+                padding: 10px 14px;
+                font-size: .95rem;
+            }
+
+            .bento-grid { grid-template-columns: 1fr; }
+            .axis-hero-title { font-size: 2.1rem; }
+            .axis-year-row { grid-template-columns: 1fr; gap: 10px; }
+            .profile-row { flex-direction: column; }
+            .profile-img { width: 100%; max-width: 240px; }
+            .gallery-item { flex-direction: column; }
+            .gallery-item img { width: 100%; max-width: 100%; }
+        }
+
+        @media (max-width: 520px) {
+            .logo-text { display: none; }
+            .nav-inner { padding-left: 12px; padding-right: 12px; }
+            .page-view { margin-top: 24px; padding: 0 14px; }
+            .view-title { font-size: 1.8rem; }
+        }
+
+        /* Projects theme shared by Invited Talks and News */
+        .project-theme { background: transparent; border: 0; box-shadow: none; padding: 0; }
+        .project-theme .sec-head {
+            color: var(--primary);
+            font-size: 1.35rem;
+            font-weight: 850;
+            letter-spacing: .02em;
+            border-left: 0;
+            padding: 0;
+            background: transparent;
+            border-radius: 0;
+            box-shadow: none;
+        }
+        .project-theme .sec-head::before {
+            display: block;
+            content: "";
+            width: 6px;
+            height: 6px;
+            flex: 0 0 6px;
+            background: var(--dodger-blue);
+            border-radius: 50%;
+        }
+        .project-theme .pub-item { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-top: 12px; box-shadow: 0 6px 18px rgba(15,23,42,.06); }
+        .project-theme .pub-item + .pub-item { margin-top: 14px; }
+        .project-theme .pub-item {
+            position: relative;
+            padding: 20px 22px 18px 22px;
+            background: #ffffff;
+            border: 1.5px solid var(--border-card);
+            border-radius: 14px;
+            box-shadow: 0 5px 16px rgba(15,23,42,.055);
+            transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+        .project-theme .pub-item:hover {
+            transform: translateY(-3px);
+            border-color: #9bc9ff;
+            box-shadow: 0 9px 22px rgba(30,144,255,.11);
+        }
+        .project-theme .pub-title { font-size: 1.08rem; font-weight: 800; color: var(--primary); line-height: 1.55; }
+        .project-theme .pub-venue { font-size: .98rem; font-weight: 700; color: var(--text-main); margin-top: 8px; }
+        .project-theme .pub-num { display: inline-block; color: var(--dodger-vivid); font-weight: 900; margin-right: 6px; }
+        .project-theme .sec-head { margin: 18px 0 14px; }
+
+        /* 뉴스 카드 전용: 우측 맞춤 슬라이드 및 클릭 확대 인터랙션 */
+        .news-item-with-img {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .news-item-with-img .news-text-wrap {
+            flex: 1;
+        }
+        .news-card-img-wrap {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1.5px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .news-card-img-wrap:hover {
+            transform: translateY(-2px);
+            border-color: var(--dodger-blue);
+            box-shadow: 0 4px 14px rgba(30, 144, 255, 0.2);
+        }
+        .news-card-img {
+            max-height: 170px;
+            width: auto;
+            max-width: 320px;
+            display: block;
+            object-fit: contain;
+            background: #ffffff;
+        }
+        .zoom-badge {
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+            background: rgba(10, 27, 51, 0.75);
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            pointer-events: none;
+            backdrop-filter: blur(2px);
+        }
+        @media (max-width: 800px) {
+            .news-item-with-img {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+            .news-card-img-wrap {
+                width: 100%;
+                max-width: 360px;
+            }
+            .news-card-img {
+                max-height: none;
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+
+        /* 이미지 확대 팝업 모달 (Lightbox) */
+        .img-modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(7, 20, 38, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            cursor: zoom-out;
+            animation: fadeIn 0.15s ease;
+        }
+        .img-modal-overlay.active {
+            display: flex;
+        }
+        .img-modal-content {
+            max-width: 90vw;
+            max-height: 88vh;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.2);
+            object-fit: contain;
+            cursor: default;
+        }
+        .img-modal-close {
+            position: absolute;
+            top: 20px; right: 24px;
+            font-size: 2.2rem;
+            color: #ffffff;
+            cursor: pointer;
+            font-weight: 300;
+            line-height: 1;
+            transition: color 0.15s;
+        }
+        .img-modal-close:hover {
+            color: var(--dodger-blue);
+        }
+    </style>
+</head>
+<body>
+<!-- 상단 헤더 -->
+<header>
+<div class="nav-inner">
+<a aria-label="ARCS Lab home" class="logo-wrap" href="#" onclick="showView('home'); return false;">
+<img alt="ARCS Lab" class="logo-img" referrerpolicy="no-referrer" src="images/general_ARCS_Lab_1.jpg"/>
+<div class="logo-text">ARCS <span>Lab.</span></div>
+</a>
+<button aria-expanded="false" aria-label="메뉴 열기" class="mobile-menu-toggle" id="mobile-menu-toggle" onclick="toggleMobileMenu(event)" type="button">☰</button>
+<nav class="nav-menu">
+<a class="nav-btn active" href="#" id="btn-home" onclick="showView('home'); return false;">Home</a>
+<div class="nav-item">
+<button class="nav-btn" id="btn-family" onclick="toggleMobileSubmenu(event, this)">Family ▾</button>
+<div class="dropdown">
+<button onclick="showView('pi')">PI</button>
+<button onclick="showView('student')">Student</button>
+</div>
+</div>
+<!-- Research 하위에 Chip Gallery 배치 -->
+<div class="nav-item">
+<button class="nav-btn" id="btn-research" onclick="toggleMobileSubmenu(event, this)">Research ▾</button>
+<div class="dropdown">
+<button onclick="showView('research')">Research</button>
+<button onclick="showView('chips')">Chip Gallery</button>
+</div>
+</div>
+<div class="nav-item">
+<button class="nav-btn" id="btn-achievement" onclick="toggleMobileSubmenu(event, this)">Achievement ▾</button>
+<div class="dropdown">
+<button onclick="showView('publications')">Publications</button>
+<button onclick="showView('patents')">Patents</button>
+</div>
+</div>
+<button class="nav-btn" id="btn-project" onclick="showView('project')">Project</button>
+<button class="nav-btn" id="btn-talks" onclick="showView('invited-talks')">Invited Talks</button>
+<button class="nav-btn" id="btn-teaching" onclick="showView('teaching')">Teaching</button>
+<button class="nav-btn" id="btn-news" onclick="showView('news')">News</button>
+<button class="nav-btn" id="btn-gallery" onclick="showView('lab-gallery')">Lab. Gallery</button>
+</nav>
+</div>
+</header>
+<!-- 1. HOME VIEW -->
+<div class="page-view active" id="view-home">
+<div class="bento-grid">
+<div class="axis-hero-card">
+<h1 class="axis-hero-title" style="text-transform:none;">
+<span class="arcs-initial">A</span>dvanced <span class="arcs-initial">R</span>adio-Frequency<br/>
+                    Integrated <span class="arcs-initial">C</span>ircuit and <span class="arcs-initial">S</span>ystem Design Lab.
+                </h1>
+<div class="axis-hero-sub">
+                    The ARCS Laboratory — Leading Innovations in High-Speed RF/Analog ICs and Wireless Sensing Systems.
+                </div>
+<p class="axis-hero-p">
+                    We research RF/Analog Circuits and Systems based on CMOS.<br/>
+                    Specifically, we build versatile integrated circuits that push performance and efficiency, spanning Gbps High-Speed Wireless Transceivers, Precise Ranging &amp; Localization Sensors, and AI Radar Systems.
+                </p>
+<!-- 리서치 확인하러 가기 CTA 버튼 -->
+<div class="axis-actions">
+<button class="btn-explore" onclick="showView('research')">
+                        Explore Research →
+                    </button>
+<button class="btn-join" onclick="showView('home', 'contact')">
+                        Join the Lab ↗
+                    </button>
+</div>
+<!-- 키워드 태그 -->
+</div>
+<div class="card home-info-card" id="latest-news">
+<div class="sec-head">Latest News (2026)</div>
+<div style="display:flex; flex-direction:column; gap:16px; font-size:0.95rem; text-align:justify;">
+<div>
+<strong style="color:var(--dodger-vivid);">[2026.08]</strong> Siwon has been selected for the 2026 Master's Student Research Grant Program (석사과정 연구장려금). The selected research project is titled “<strong>임펄스 기반 다중 배열 수신기를 이용한 고정밀 3차원 위치 추정 시스템 IC 설계</strong>”. Through this research grant, Siwon will receive a total of 12 million KRW from September 2026 to August 2027. Congrats!
+                    </div>
+<div>
+<strong style="color:var(--dodger-vivid);">[2026.08]</strong> Our research proposal, "<strong>차세대 통신-센싱 융합 환경을 위한 초저전력 3차원 각도·거리 통합추정 임펄스-라디오 UWB 하이브리드 빔포밍 레이다 SoC</strong>," has been selected for the Basic Research Program (기본연구) by the National Research Foundation of Korea (NRF, 한국연구재단). The project will run for 60 months, from September 2026 to August 2031. As our research group's first external project, we hope this will serve as a major stepping stone for our future researches.
+                    </div>
+<div>
+<strong style="color:var(--dodger-vivid);">[2026.02]</strong> Youngchan and Sungjae have newly joined our ARCS Lab. They will be working in the lab as interns and plan to pursue their Master’s degrees with us after graduation. We warmly congratulate them on joining the lab and wish them a meaningful and rewarding graduate journey.
+                    </div>
+</div>
+</div>
+<div class="card home-info-card" id="contact">
+<div class="sec-head">Contact or Consulting</div>
+<div style="font-size:0.93rem; line-height:1.75;">
+<p>전자회로 및 반도체 회로 설계에 관심이 있는 학부 연구생 및 진학에 관심 있는 학생을 모집합니다.</p>
+<p>관심이 있으신 학생은 하기 메일로 면담 요청을 해주시기 바랍니다. (아날로그 회로 설계, RF 통신 회로 등)</p>
+<p>학과는 정보통신공학과 또는 지능형반도체공학과(협동과정)으로 진학이 가능합니다.</p>
+<p>멤버에게는 등록금 및 장학금 지원이 가능합니다.</p>
+<div class="divider" style="margin:16px 0;"></div>
+<p style="color:var(--text-muted);">
+                        I am looking for undergraduate research students and prospective graduate students interested in integrated circuit design. If you are interested, please send an email to request a meeting. (Analog Circuit, RF communication circuits, etc.)<br/>
+                        You can apply to either the department of information and telecommunication engineering or the department of intelligent semiconductor engineering.<br/>
+                        Tuition and scholarship support is available for members.<br/>
+                        Please feel free to contact me for any consulting!
+                    </p>
+<div class="divider" style="margin:16px 0;"></div>
+<p><strong>Address)</strong> 인천광역시 연수구 아카데미로 119, 7호관 정보기술대학 519호<br/>
+                    Room 519, Bldg. 7, 119 Academy-ro, Yeonsu-gu, Incheon, Republic of Korea</p>
+<p style="margin-top:6px;"><strong>E-Mail )</strong> <a href="mailto:ghaenglee@inu.ac.kr" style="color:var(--dodger-vivid); font-weight:800; text-decoration:underline;">ghaenglee@inu.ac.kr</a></p>
+<p><strong>Office)</strong> 82-31-835-8283</p>
+<p><strong>Lab.)</strong> 82-31-835-4199</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. PI VIEW -->
+<div class="page-view" id="view-pi">
+<h2 class="view-title">Principal Investigator</h2>
+<div class="card">
+<div class="profile-row">
+<img alt="Geunhaeng Lee" class="profile-img" referrerpolicy="no-referrer" src="images/Principal_Investigat_Geunhaeng_Lee_1.jpg"/>
+<div class="profile-info">
+<h3>Geunhaeng Lee (이근행)</h3>
+<div class="profile-links" style="margin-bottom:12px;">
+<a href="https://ieeexplore.ieee.org/author/37085768107" target="_blank">IEEE Author Profile</a> / 
+                        <a href="https://scholar.google.com/citations?user=1P5Vq_0AAAAJ&amp;hl=ko" target="_blank">Google Scholar</a>
+</div>
+<p><a href="mailto:ghaenglee@inu.ac.kr" style="color:var(--primary); font-weight:700;">ghaenglee@inu.ac.kr</a></p>
+<p><strong>Assistant Professor</strong><br/>
+                    Dept. of Information and Telecommunication Engineering,<br/>
+                    Incheon National University</p>
+</div>
+</div>
+<div class="divider"></div>
+<div class="sec-head">Education</div>
+<p><strong>Ph.D. in Electrical and Electronic Engineering, Yonsei University, Seoul</strong> (March. 2014 ~ Feb. 2021)<br/>
+            • Combined Master &amp; Ph.D. in Electrical and Electronic Engineering (Advisor: Prof. Tae Wook Kim)</p>
+<p style="margin-top:10px;"><strong>B.S. in Electronic and Electrical Engineering, Dankook University, Kyung-Ki</strong> (March. 2010 ~ Feb. 2014)</p>
+<div class="divider"></div>
+<div class="sec-head">Careers</div>
+<p><strong>Incheon National University, Incheon, Republic of Korea</strong> (March. 2025 ~ Present)<br/>
+            - Dept. of Information and Telecommunication Engineering, Assistant Professor</p>
+<p style="margin-top:10px;"><strong>Andong National University, Andong, Kyungpook, Republic of Korea</strong> (March. 2023 ~ Feb. 2025)<br/>
+            - Dept. of the Electronic Engineering, Assistant Professor</p>
+<p style="margin-top:10px;"><strong>Samsung Electronics System LSI Business, Hwa-Seong, Republic of Korea</strong> (March. 2021 ~ Feb. 2023)<br/>
+            - Staff Engineer, Design Platform Development Team &amp; Connectivity Development Team<br/>
+               (Former) IP Development Team, Mixed-Signal Circuit Design Team<br/>
+            ➢ Experience of the IEEE 802.15.4/4z (UWB) RF Transceiver Design<br/>
+            ➢ Design of UWB Tx including transmitter building block such as power amplifier, gain amplifier, mixer, etc.<br/>
+            ➢ RF Switch IC Design with wideband and high power handling.<br/>
+            ➢ Transformer, Inductor Passive Device Design using EM Simulation</p>
+<div class="divider"></div>
+<div class="sec-head">Academic Activities</div>
+<ul style="padding-left:20px; line-height:1.9;">
+<li>Technical Reviewer, IEEE Journal of Solid-State Circuits (JSSC)</li>
+<li>Technical Reviewer, IEEE Transactions on Circuits and Systems II (TCAS-II)</li>
+<li>Technical Reviewer, IEEE Solid-State Circuits Letters (SSC-L)</li>
+<li>Technical Reviewer, IEEE Transactions on Biomedical Circuits and Systems (TBioCAS)</li>
+</ul>
+<div class="divider"></div>
+<div class="sec-head">Brief Bio</div>
+<p style="text-align:justify; margin-bottom:12px;">
+<strong>Geunhaeng Lee</strong> received a B.S. degree in electronic &amp; electrical engineering from Dankook University, Kyung-Ki, Republic of Korea (ROK), in 2014, and a Ph.D. degree in electrical and electronic engineering from Yonsei University, Seoul, ROK, in 2021, respectively.
+            </p>
+<p style="text-align:justify; margin-bottom:12px;">
+                He was with System LSI Business, Samsung Electronics, Hwaseong, ROK from 2021 to 2023 as a Staff Engineer, where he was involved with design of UWB RF transceiver (IEEE 802.15.4z). From 2023 to 2025, he was with the dept. of Electronic Engineering, Andong National University, Kyungpook, ROK. Since March 2025, he has been with the dept. of Information and Telecommunication Engineering, Incheon National University, Incheon, ROK as an assistant professor.
+            </p>
+<p style="text-align:justify; margin-bottom:12px;">
+                His research interests are RF amplifiers including PA and LNA, mixed-signal circuits, and circuit &amp; system for wireless communication. He is also interested in research on UWB transceiver systems, mm-wave ICs and digital transmitter.
+            </p>
+<p style="text-align:justify; margin-bottom:12px;">
+                Dr. Lee received a bronze prize of the circuit design division at the 27th Humantech Paper Award hosted by Samsung Electronics in 2021.
+            </p>
+<p style="text-align:justify;">
+                He also serves as a technical reviewer for <em>IEEE SSCL</em>, <em>IEEE TCAS-II</em>, <em>IEEE TBioCAS</em> and <em>IEEE JSSC</em>.
+            </p>
+<div class="divider"></div>
+<div class="sec-head">Awards</div>
+<p><strong>[1] Bronze Prize, 27th Samsung Electronics Humantech Awards (Circuit Design Division)</strong> (Feb. 2021)<br/>
+            ➢ A 1.125 Gbps, 28 mW, 2m IR-UWB CMOS Transceiver using Extended – Multi Pulse Position Modulation</p>
+</div>
+</div>
+<!-- 3. STUDENT VIEW -->
+<div class="page-view" id="view-student">
+<h2 class="view-title">Student</h2>
+<div class="card" style="text-align:center; background:var(--dodger-bg); margin-bottom:30px; border: 1.5px solid #c7dcf8;">
+<p style="font-weight:800; font-size:1.18rem; color:var(--dodger-dark);">We are looking for passionate students. Interested students can contact us anytime !</p>
+<p style="margin-top:12px; font-size:0.96rem; color:var(--text-main);">
+                전자회로 및 반도체 회로 설계에 관심이 있는 학부 연구생 및 진학에 관심 있는 학생을 모집합니다.<br/>
+                관심이 있으신 학생은 하기 메일로 면담 요청을 해주시기 바랍니다. (아날로그 회로 설계, RF 통신 회로 등)<br/>
+                학과는 정보통신공학과 또는 지능형반도체공학과(협동과정)으로 진학이 가능합니다. 멤버에게는 등록금 및 장학금 지원이 가능합니다.
+            </p>
+</div>
+<div class="sec-head">Graduate students including incoming students</div>
+<div class="card">
+<div class="profile-row">
+<img alt="Siwon Lee" class="profile-img" referrerpolicy="no-referrer" src="images/Student_Siwon_Lee_1.jpg"/>
+<div class="profile-info">
+<h3>Siwon Lee</h3>
+<p>Master's Degree Course (2026-1)</p>
+<p>Research Area : Beamforming Impulse Radar Transceiver IC for 3D Space Estimation</p>
+<p>siwon7879@naver.com</p>
+</div>
+</div>
+<div class="divider"></div>
+<div class="profile-row">
+<img alt="Sangwoo Lee" class="profile-img" referrerpolicy="no-referrer" src="images/Siwon_Lee_Sangwoo_Lee_1.jpg"/>
+<div class="profile-info">
+<h3>Sangwoo Lee</h3>
+<p>Master's Degree Course (2026-1)</p>
+<p>Research Area : Compound RF Building Block Research for Effect of Radiation</p>
+<p>wood0330@inu.ac.kr</p>
+</div>
+</div>
+</div>
+<div class="sec-head">Undergraduate students</div>
+<div class="card">
+<div class="profile-row">
+<img alt="Youngchan Kim" class="profile-img" referrerpolicy="no-referrer" src="images/Sangwoo_Lee_Youngchan_Kim_1.png"/>
+<div class="profile-info">
+<h3>Youngchan Kim</h3>
+<p>Intern (Master’s Degree admission expected in 2027)</p>
+<p>Research Area : Gbps UWB Transceiver Design with Enhance Modulation Scheme</p>
+<p>dudcks0731@inu.ac.kr</p>
+</div>
+</div>
+<div class="divider"></div>
+<div class="profile-row">
+<img alt="Sungjae Choi" class="profile-img" referrerpolicy="no-referrer" src="images/Youngchan_Kim_Sungjae_Choi_1.jpg"/>
+<div class="profile-info">
+<h3>Sungjae Choi</h3>
+<p>Intern (Master’s Degree admission expected in 2028)</p>
+<p>Research Area : X-Band Compound Semiconductor IC with EM Device</p>
+<p>0423csj@inu.ac.kr</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. RESEARCH VIEW (AI 레이더 인라인 Base64 100% 영구 백업 완료) -->
+<div class="page-view" id="view-research">
+<h2 class="view-title">Research</h2>
+<div class="card" style="text-align:center;">
+<p style="font-size:1.1rem; font-weight:700; color:var(--primary); margin-bottom:8px;">
+                Students who are interested or curious about the research can contact me anytime.
+            </p>
+<p style="font-size:1.1rem; font-weight:700; color:var(--primary); margin-bottom:8px;">
+                I will gladly explain the research in detail and help spark your interest!
+            </p>
+<p style="font-size:1.1rem; font-weight:700; color:var(--primary); margin-bottom:14px;">
+                Please don't hesitate to reach out and feel free to schedule a meeting. 🙏
+            </p>
+<p style="font-size:1rem; font-weight:700; color:#000000; margin-bottom:4px;">
+                아래 연구가 궁금하거나 흥미가 있는 학생들은 언제든 연락주세요.
+            </p>
+<p style="font-size:1rem; font-weight:700; color:#000000; margin-bottom:4px;">
+                연구에 대해 자세히 설명드리고 흥미를 가질 수 있게 도와드리겠습니다!
+            </p>
+<p style="font-size:1rem; font-weight:700; color:#000000;">
+                연락하는 것을 두려워 하지 마시고 편하게 면담 신청해주시기 바랍니다. 🙏
+            </p>
+<div class="divider"></div>
+<div class="sec-head" style="justify-content:center; color:var(--dodger-dark);">Research Overview</div>
+<img alt="Research Overview" referrerpolicy="no-referrer" src="images/Research_Research_Overview_1.png" style="width:100%; border-radius:12px;"/>
+</div>
+<div class="card">
+<div class="sec-head">1. Wireless Transceiver IC design (Communication)</div>
+<img alt="Wireless Transceiver" referrerpolicy="no-referrer" src="images/Research_Wireless_Transceiver_1.png" style="width:100%; border-radius:12px; margin-bottom:14px;"/>
+<p style="text-align:justify; margin-bottom:16px;">
+                And these days, UWB application is the most important key idea for various application. UWB technique is applied to any smart devices for communication and precise ranging simultaneously. And, also as we know the mm-wave IC is applied to any automotive radar application or 5G system.
+            </p>
+<p><strong>1-a. High-data-rate (&gt;Gbps) Fully Integrated Transceiver IC with advanced modulation technique</strong></p>
+<ul style="padding-left:24px; margin:8px 0 16px 0;">
+<li>Extended – Multi Pulse Position Modulation (E-MPPM) (IEEE ISSCC 2021 &amp; IEEE JSSC 2022)</li>
+</ul>
+<img alt="E-MPPM" referrerpolicy="no-referrer" src="images/Research_E-MPPM_1.png" style="width:100%; border-radius:12px; margin-bottom:16px;"/>
+<ul style="padding-left:24px; margin-bottom:16px;">
+<li>Amplitude – Time Shift Keying (ATSK) Transceiver IC System for Brain Computing Interfaces (IEEE TBioCaS 2024)</li>
+</ul>
+<img alt="ATSK" referrerpolicy="no-referrer" src="images/Research_ATSK_1.png" style="width:100%; border-radius:12px; margin-bottom:16px;"/>
+<p><strong>1-b. IEEE 802.15.4z Standard Transceiver (Designed from Samsung) for Precise Ranging and Communication Simultaneous and Child Presence Detection</strong></p>
+<img alt="Samsung UWB 1" referrerpolicy="no-referrer" src="images/Research_Samsung_UWB_1_1.png" style="width:100%; border-radius:12px; margin:14px 0;"/>
+<img alt="Samsung UWB 2" referrerpolicy="no-referrer" src="images/Research_Samsung_UWB_2_1.png" style="width:100%; border-radius:12px;"/>
+</div>
+<div class="card">
+<div class="sec-head">2. Wireless Sensor (Range, Angle) IC design</div>
+<p><strong>2-a. A Time Domain Artificial Intelligence Radar System Using 33-GHz Direct Sampling for Hand Gesture Recognition</strong></p>
+<img alt="AI Radar System (33-GHz Direct Sampling)" referrerpolicy="no-referrer" src="images/Research_AI_Radar_System_(33-_1.png" style="width:100%; border-radius:12px; margin:14px 0;"/>
+<p style="margin-bottom:16px;">The convergence of AI and RF leads to the expansion of new boundaries and a paradigm shift.</p>
+<p><strong>2-b. Angle of Arrival wireless sensor for localization.</strong></p>
+<img alt="AoA Sensor" referrerpolicy="no-referrer" src="images/Research_AoA_Sensor_1.png" style="width:100%; border-radius:12px; margin:14px 0;"/>
+<p><strong>2-c. Position Tracking using the time difference of arrival (TDOA) using a receiver array</strong></p>
+<img alt="TDOA Tracking" referrerpolicy="no-referrer" src="images/Research_TDOA_Tracking_1.png" style="width:100%; border-radius:12px; margin-top:14px;"/>
+</div>
+<div class="card">
+<div class="sec-head">3. RF/Analog IC Design</div>
+<p><strong>3-a. Wideband LNA using Active Inductor for multi-standard</strong></p>
+<img alt="LNA" referrerpolicy="no-referrer" src="images/Research_LNA_1.png" style="width:100%; border-radius:12px; margin:14px 0;"/>
+<p><strong>3-b. High-speed Active Sampler using post-distortion for Linearization</strong></p>
+<img alt="Active Sampler" referrerpolicy="no-referrer" src="images/Research_Active_Sampler_1.png" style="width:100%; border-radius:12px; margin-top:14px;"/>
+</div>
+</div>
+<!-- 5. CHIP GALLERY VIEW -->
+<div class="page-view" id="view-chips">
+<h2 class="view-title">Chip Gallery<br/><span style="font-size:1.5rem; color:var(--text-muted); font-weight:700;">(Die &amp; Layout)</span></h2>
+<div class="chip-grid">
+<div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="TCAS-II" referrerpolicy="no-referrer" src="images/High-Speed_IR-UWB_Tr_TCAS-II_1.png"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">High-Speed IR-UWB Transmitter with a Power-Gating Technique and advanced modulation technique</div>
+<span class="chip-badge">25' TCAS-II</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="MWTL" referrerpolicy="no-referrer" src="images/Ultra_Low_Power_Slid_MWTL_1.png"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">Ultra Low Power Sliding-IF Receiver</div>
+<span class="chip-badge">25' MWTL</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="JSSC Samsung" referrerpolicy="no-referrer" src="images/IR-UWB_Radar_Transce_JSSC_Samsung_1.png"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">IR-UWB Radar Transceiver for Child Presence Detection and Precision Positioning</div>
+<span class="chip-badge">25' JSSC (Invited) designed from Samsung</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="TbioCaS" referrerpolicy="no-referrer" src="images/Amplitude_and_Synchr_TbioCaS_1.png"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">Amplitude and Synchronized Time Shift Keying IR-UWB Transceiver IC  for BCI Application</div>
+<span class="chip-badge">24' TbioCaS</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap chip-only">
+<img alt="ACCESS" referrerpolicy="no-referrer" src="images/High_Speed_Active_Sa_ACCESS_1.png"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">High Speed Active Sampler with distortion cancellation technique</div>
+<span class="chip-badge">24' ACCESS (extended version of the 22' TCAS2)</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="ISSCC JSSC Samsung" referrerpolicy="no-referrer" src="images/802.15.4z_Fully_Inte_ISSCC_JSSC_Samsung_1.png"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">802.15.4z Fully Integrated UWB Transceiver SoC</div>
+<span class="chip-badge">23' ISSCC &amp; 23' JSSC (Invited) designed from Samsung</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="E-MPPM" referrerpolicy="no-referrer" src="images/Extended_-_Multi_Pul_E-MPPM_1.jpg"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">Extended - Multi Pulse Position Modulation Transceiver IC</div>
+<span class="chip-badge">21' ISSCC &amp; 22' IEEE JSSC</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="Gesture Recognition" referrerpolicy="no-referrer" src="images/Gesture_Recognition__Gesture_Recognition_1.jpg"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">Gesture Recognition System using Impulse Radar</div>
+<span class="chip-badge">19' SoVC &amp; 20' IEEE JSSC</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="LNA" referrerpolicy="no-referrer" src="images/Wideband_Low_Noise_A_LNA_1.jpg"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">Wideband Low Noise Amplifier using Active Inductor</div>
+<span class="chip-badge">19' IEEE TMTT</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="AoA Toggled TDC" referrerpolicy="no-referrer" src="images/Angle-of-Arrival_Mea_AoA_Toggled_TDC_1.jpg"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">Angle-of-Arrival Measuring System using Toggled TDC</div>
+<span class="chip-badge">19' IEEE MWCL</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="Digitalized MPPM" referrerpolicy="no-referrer" src="images/Digitalized_-_Multi__Digitalized_MPPM_1.png"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">Digitalized - Multi Pulse Position Modulation Transceiver IC</div>
+<span class="chip-badge">19' IEEE JSSC</span>
+</div>
+</div><div class="chip-card">
+<div class="chip-img-wrap">
+<img alt="AoA Sensor" referrerpolicy="no-referrer" src="images/Angle-of-Arrival_Mea_AoA_Sensor_1.jpg"/>
+</div>
+<div class="chip-desc">
+<div class="chip-title">Angle-of-Arrival Measuring System using Receiver Array</div>
+<span class="chip-badge">16' IEEE Sensor</span>
+</div>
+</div></div>
+</div>
+<!-- 6. PUBLICATIONS VIEW (Geunhaeng Lee 밑줄+볼드 100% 적용) -->
+<div class="page-view" id="view-publications">
+<div class="axis-pub-header">
+<h2 class="view-title" style="text-align:left; margin-bottom:12px;">Publications</h2>
+<div class="axis-pub-meta">
+<strong>18</strong> journal &amp; conference papers · <strong style="color:#000000; font-size:1.2rem; font-weight:800; margin-right:6px;">* Corresponding author</strong>
+</div>
+<div class="axis-filter-bar">
+<button class="axis-filter-btn active">All 18</button>
+<button class="axis-filter-btn">Journals 15</button>
+<button class="axis-filter-btn">Conferences 3</button>
+</div>
+</div>
+<!-- 2025 -->
+<div class="axis-year-row">
+<div class="axis-year-label">2025</div>
+<div class="axis-cards-col">
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[18]</span>
+<span class="axis-tag">IEEE TCAS-II</span>
+<span class="axis-item-authors">Kyoungseok Song, Donggun Lee, <u><b>Geunhaeng Lee</b></u>, Yonghui Li, Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">A 2.54 Gbps, 1.22 pJ/bit, IR-UWB Transmitter with a Power-Gating Technique</div>
+<div class="axis-item-venue">
+                        IEEE Transactions on Circuits and Systems II: Express Briefs (TCAS-II) (SCI(E)), 2025 
+                        <a href="https://ieeexplore.ieee.org/document/11104931" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[17]</span>
+<span class="axis-tag">IEEE MWTL</span>
+<span class="axis-item-authors">Hyun-Gi Seok, Keun-Mok Kim, Sang-Gug Lee, In-Young Lee, <u><b>Geunhaeng Lee*</b></u></span>
+</div>
+<div class="axis-item-title">ULP Sliding-IF Receiver with 25% Duty Passive Mixer and Enhanced LO Feed-Through Rejection</div>
+<div class="axis-item-venue">
+                        IEEE Microwave and Wireless Technology Letters (MWTL) (SCI(E)), 2025 
+                        <a href="https://ieeexplore.ieee.org/abstract/document/11142829" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[16]</span>
+<span class="axis-tag">IEEE JSSC</span>
+<span class="axis-item-authors">Hyun-Gi Seok*, Wan Kim, Shinyoung Kim, <u><b>Geunhaeng Lee</b></u>, et al.</span>
+</div>
+<div class="axis-item-title">High-Sensitivity, Low-Power IR-UWB Radar Transceiver with Self-Interference Resistance for Child Presence Detection and Precision Positioning</div>
+<div class="axis-item-venue">
+                        IEEE Journal of Solid-States Circuits (JSSC) (SCI(E)), 2025, Invited 
+                        <a href="https://ieeexplore.ieee.org/document/10896615" target="_blank">[Link]</a>
+</div>
+</div>
+</div>
+</div>
+<!-- 2024 -->
+<div class="axis-year-row">
+<div class="axis-year-label">2024</div>
+<div class="axis-cards-col">
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[15]</span>
+<span class="axis-tag">IEEE TBioCAS</span>
+<span class="axis-item-authors"><u><b>Geunhaeng Lee</b></u>, Junyoung Jang, Kyungseok Song and Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">A 6-9 GHz 1.28 Gbps 76mW Amplitude and Synchronized Time Shift Keying IR-UWB CMOS Transceiver for Brain Computer Interfaces</div>
+<div class="axis-item-venue">
+                        IEEE Transactions on Biomedical Circuits and Systems (SCI(E)), 2024 
+                        <a href="https://ieeexplore.ieee.org/document/10685489" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[14]</span>
+<span class="axis-tag">IEIE KCI</span>
+<span class="axis-item-authors"><u><b>Geunhaeng Lee*</b></u> (Sole Author)</span>
+</div>
+<div class="axis-item-title">Ultra-Low Power 1 Gbps Amplitude Modulation Ultra-Wideband CMOS Transmitter</div>
+<div class="axis-item-venue">
+                        IEIE Journal of the Institute of Electronics and Information Engineers (KCI), 2024 
+                        <a href="https://paper.cricit.kr/user/listview/ieie2018/doc_rdoc.asp?catvalue=3&amp;returnVal=RD_R&amp;organCode=ieie&amp;organCode2=ieie01&amp;yearmonth=202410&amp;page=1&amp;dn=432331&amp;step=&amp;usernum=0&amp;seid=" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[13]</span>
+<span class="axis-tag">IEEE ACCESS</span>
+<span class="axis-item-authors">Junyoung Jang, <u><b>Geunhaeng Lee</b></u> and Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">An Active Track and Hold Circuit with Linearity Enhancement Technique and Its Analysis using Volterra Series</div>
+<div class="axis-item-venue">
+                        IEEE Access (SCI(E)), 2024 
+                        <a href="https://ieeexplore.ieee.org/document/10423010" target="_blank">[Link]</a>
+</div>
+</div>
+</div>
+</div>
+<!-- 2023 -->
+<div class="axis-year-row">
+<div class="axis-year-label">2023</div>
+<div class="axis-cards-col">
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[12]</span>
+<span class="axis-tag">IEEE ACCESS</span>
+<span class="axis-item-authors">Ui-Suk Suh, <u><b>Geunhaeng Lee</b></u>, Jieun Han, Tae Wook Kim and Won-Sang Ra*</span>
+</div>
+<div class="axis-item-title">Passive IR-UWB Localization System for UAV-based Electric Facility Inspection during GPS Outage</div>
+<div class="axis-item-venue">
+                        IEEE Access (SCI(E)), 2023 
+                        <a href="https://ieeexplore.ieee.org/document/10106271" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[11]</span>
+<span class="axis-tag">IEEE JSSC</span>
+<span class="axis-item-authors">Wan Kim*, Hyun-Gi Seok, <u><b>Geunhaeng Lee</b></u>, et al.</span>
+</div>
+<div class="axis-item-title">A Fully Integrated IEEE 802.15.4/4z Compliant 6.5-8GHz UWB System-on Chip RF Transceiver Supporting Precision Positioning in CMOS 28nm Process</div>
+<div class="axis-item-venue">
+                        IEEE Journal of Solid-States Circuits (JSSC) (SCI(E)), 2023, Invited 
+                        <a href="https://ieeexplore.ieee.org/document/10269150" target="_blank">[Link]</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Prior to 2023 -->
+<div class="axis-year-row">
+<div class="axis-year-label">~2022</div>
+<div class="axis-cards-col">
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[10]</span>
+<span class="axis-tag">ISSCC 2023</span>
+<span class="axis-item-authors">Wan Kim*, Hyun-Gi Seok, <u><b>Geunhaeng Lee</b></u>, et al.</span>
+</div>
+<div class="axis-item-title">A Fully Integrated IEEE 802.15.4/4z Compliant 6.5-8GHz UWB System-on Chip RF Transceiver Supporting Precision Positioning in CMOS 28nm Process</div>
+<div class="axis-item-venue">
+                        IEEE International Solid-State Circuits Conference (ISSCC), 2023 
+                        <a href="https://ieeexplore.ieee.org/document/10067364" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[9]</span>
+<span class="axis-tag">IEEE JSSC</span>
+<span class="axis-item-authors"><u><b>Geunhaeng Lee</b></u>, Junyoung Jang, Ji-Hoon Kim and Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">An IR -UWB CMOS Transceiver with Extended Pulse Position Modulation</div>
+<div class="axis-item-venue">
+                        IEEE Journal of Solid-States Circuits (JSSC) (SCI(E)), 2022 
+                        <a href="https://ieeexplore.ieee.org/document/9800201" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[8]</span>
+<span class="axis-tag">ISSCC 2021</span>
+<span class="axis-item-authors"><u><b>Geunhaeng Lee</b></u>, Sanghwa Lee, Ji-Hoon Kim and Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">A 1.125 Gbps, 28mW, 2m radio-range IR-UWB CMOS Transceiver</div>
+<div class="axis-item-venue">
+                        IEEE International Solid-State Circuits Conference (ISSCC), 2021 
+                        <a href="https://ieeexplore.ieee.org/document/9366044" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[7]</span>
+<span class="axis-tag">IEEE JSSC</span>
+<span class="axis-item-authors">Jungwoon Park, Junyoung Jang, <u><b>Geunhaeng Lee</b></u>, Hyunmin Koh, Changhwan Kim, Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">A Time Domain Artificial Intelligence Radar System Using 33-GHz Direct Sampling for Hand Gesture Recognition</div>
+<div class="axis-item-venue">
+                        IEEE Journal of Solid-States Circuits (JSSC) (SCI(E)), 2020 
+                        <a href="https://ieeexplore.ieee.org/document/8976307" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[6]</span>
+<span class="axis-tag">IEEE TMTT</span>
+<span class="axis-item-authors">Junyoung Jang, Hansol Kim, <u><b>Geunhaeng Lee</b></u> and Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">Two-Stage Compact Wideband Flat Gain Low-Noise Amplifier Using High-Frequency Feedforward Active Inductor</div>
+<div class="axis-item-venue">
+                        IEEE TRANSACTIONS ON MICROWAVE THEORY AND TECHNIQUES (TMTT) (SCI(E)), 2019 
+                        <a href="https://ieeexplore.ieee.org/document/8891917" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[5]</span>
+<span class="axis-tag">IEEE MWCL</span>
+<span class="axis-item-authors"><u><b>Geunhaeng Lee</b></u>, Hyunmin Koh, Ui-Suk Suh and Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">An IR-UWB Angle-of-Arrival Sensor IC Using Auto-Toggled Time-to-Digital Converter</div>
+<div class="axis-item-venue">
+                        IEEE MICROWAVE AND WIRELESS COMPONENTS LETTERS (MWCL) (SCI(E)), 2019 
+                        <a href="https://ieeexplore.ieee.org/document/8879650" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[4]</span>
+<span class="axis-tag">IEEE JSSC</span>
+<span class="axis-item-authors"><u><b>Geunhaeng Lee</b></u>, Jungwoon Park, Junyoung Jang, Taekhyun Jung, Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">An IR -UWB CMOS Transceiver for High-Data-Rate, Low-Power, and Short-Range Communication</div>
+<div class="axis-item-venue">
+                        IEEE Journal of Solid-States Circuits (JSSC) (SCI(E)), 2019 
+                        <a href="https://ieeexplore.ieee.org/document/8721506" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[3]</span>
+<span class="axis-tag">VLSI SoVC</span>
+<span class="axis-item-authors">Jungwoon Park, Junyoung Jang, <u><b>Geunhaeng Lee</b></u>, Hyunmin Koh, Changhwan Kim and Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">A Time Domain Artificial Intelligence Radar for Hand Gesture Recognition Using 33-GHz Direct Sampling</div>
+<div class="axis-item-venue">
+                        IEEE Symposia on VLSI Circuits (SoVC), 2019 
+                        <a href="https://ieeexplore.ieee.org/document/8777995" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[2]</span>
+<span class="axis-tag">ICEIC 2017</span>
+<span class="axis-item-authors"><u><b>Geunhaeng Lee</b></u> and Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">Auto Error Rejection Digital Back End In IR-UWB System</div>
+<div class="axis-item-venue">
+                        International Conference on Electronics, Information, and Communication (ICEIC), 2017 
+                        <a href="https://www.dbpia.co.kr/pdf/pdfView.do?nodeId=NODE07110500" target="_blank">[Link]</a>
+</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[1]</span>
+<span class="axis-tag">IEEE SENSORS</span>
+<span class="axis-item-authors">Byung Gyu Yu, <u><b>Geunhaeng Lee</b></u>, Hong Gul Han, Won-Sang Ra and Tae Wook Kim*</span>
+</div>
+<div class="axis-item-title">A Time-Based Angle-of-Arrival Sensor Using CMOS IR-UWB Transceivers</div>
+<div class="axis-item-venue">
+                        IEEE SENSORS JOURNAL(SCI(E)), 2016 
+                        <a href="https://ieeexplore.ieee.org/document/7469306" target="_blank">[Link]</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 7. PATENTS VIEW (<u><b>Geunhaeng Lee</b></u> 및 이근행 밑줄+볼드 100% 적용) -->
+<div class="page-view" id="view-patents">
+<div class="axis-pub-header">
+<h2 class="view-title" style="text-align:left; margin-bottom:12px;">Patents</h2>
+<div class="axis-pub-meta">
+<strong>15</strong> registered &amp; filed patents · <span style="color:#000000; font-weight:700;">Domestic &amp; International</span>
+</div>
+<div class="axis-filter-bar">
+<button class="axis-filter-btn active">All 15</button>
+<button class="axis-filter-btn">International 5</button>
+<button class="axis-filter-btn">Domestic 10</button>
+</div>
+</div>
+<!-- International Patents -->
+<div class="axis-year-row">
+<div class="axis-year-label" style="font-size:1.4rem;">INTL</div>
+<div class="axis-cards-col">
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[5]</span>
+<span class="axis-tag">US FILED</span>
+<span class="axis-item-authors"><u><b>Geunhaeng Lee</b></u></span>
+</div>
+<div class="axis-item-title">ULTRA-WIDEBAND TRANSMITTER AND RECEIVER, AND WIRELESS APPLICATION METHOD THEREOF</div>
+<div class="axis-item-venue">US – Filed, Submitted, 18/970,837</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[4]</span>
+<span class="axis-tag">US REGISTERED</span>
+<span class="axis-item-authors">Tae Wook Kim, Minjae Yoo and <u><b>Geunhaeng Lee</b></u></span>
+</div>
+<div class="axis-item-title">DISTANCE MEASURING DEVICE AND IMPULSE IQ SIGNAL MISMATCH CALIBRATION DEVICE</div>
+<div class="axis-item-venue">US – Registration, 12,326,504</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[3]</span>
+<span class="axis-tag">CHINA FILED</span>
+<span class="axis-item-authors">Tae Wook Kim and <u><b>Geunhaeng Lee</b></u></span>
+</div>
+<div class="axis-item-title">IMPULSE SIGNAL GENERATOR USING FREQUENCY HOPPING TECHNIQUE AND METHOD FOR OPERATING THE SAME</div>
+<div class="axis-item-venue">China – Filed, Submitted</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[2]</span>
+<span class="axis-tag">US REGISTERED</span>
+<span class="axis-item-authors">Tae Wook Kim and <u><b>Geunhaeng Lee</b></u></span>
+</div>
+<div class="axis-item-title">MODULATION METHOD, MODULATION APPARATUS USING THE SAME, DEMODULATION METHOD, AND DEMODULATION APPARATUS USING THE SAME</div>
+<div class="axis-item-venue">US – Registration, 17/410,652</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[1]</span>
+<span class="axis-tag">US REGISTERED</span>
+<span class="axis-item-authors">Tae Wook Kim, Taehyun Jung and <u><b>Geunhaeng Lee</b></u></span>
+</div>
+<div class="axis-item-title">TRANSMITTER, DATA RECEIVER AND SMART DEVICE USING THE SAME</div>
+<div class="axis-item-venue">US - Registration 14/980,957</div>
+</div>
+</div>
+</div>
+<!-- Domestic Patents -->
+<div class="axis-year-row">
+<div class="axis-year-label" style="font-size:1.4rem;">KR</div>
+<div class="axis-cards-col">
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[10]</span>
+<span class="axis-tag">KR FILED</span>
+<span class="axis-item-authors"><u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">도달 각도 차이에 기반한 평면 측위 시스템</div>
+<div class="axis-item-venue">Korea – Filed,Submitted, 10-2024-0178299</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[9]</span>
+<span class="axis-tag">KR REGISTERED</span>
+<span class="axis-item-authors"><u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">초광대역 송신기 및 수신기, 및 그것의 무선 응용 방법</div>
+<div class="axis-item-venue">Korea – Registration, 10-2969072</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[8]</span>
+<span class="axis-tag">KR REGISTERED</span>
+<span class="axis-item-authors"><u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">진폭-위상 직교 변조 기법이 적용된 초광대역 송신기</div>
+<div class="axis-item-venue">Korea – Registration, 10-2951543</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[7]</span>
+<span class="axis-tag">KR REGISTERED</span>
+<span class="axis-item-authors">김태욱, 유민재, <u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">거리 측정 장치 및 임펄스 IQ 신호 부정합 교정 장치</div>
+<div class="axis-item-venue">Korea – Registration, 10-2488870</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[6]</span>
+<span class="axis-tag">KR REGISTERED</span>
+<span class="axis-item-authors">김태욱, <u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">변조 방법, 복조 방법 및 이들을 이용하는 변조 장치 및 복조 장치</div>
+<div class="axis-item-venue">Korea – Registration, 10-2421478</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[5]</span>
+<span class="axis-tag">KR REGISTERED</span>
+<span class="axis-item-authors">김태욱, 김창환, <u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">임펄스 검출을 위한 엔벨로프 검출기 및 그 방법</div>
+<div class="axis-item-venue">Korea – Registration, 10-2198548</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[4]</span>
+<span class="axis-tag">KR REGISTERED</span>
+<span class="axis-item-authors">김태욱, <u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">주파수 도약 기술을 이용한 디지털화된 다중 펄스 변조 송신기 및 그 동작방법</div>
+<div class="axis-item-venue">Korea – Registration, 10-2169186</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[3]</span>
+<span class="axis-tag">KR REGISTERED</span>
+<span class="axis-item-authors">김태욱, <u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">임펄스 신호 수신기를 위한 동기화 장치 및 그 동작방법</div>
+<div class="axis-item-venue">Korea – Registration, 10-2168362</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[2]</span>
+<span class="axis-tag">KR REGISTERED</span>
+<span class="axis-item-authors">김태욱, <u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">주파수 도약 기술을 이용한 임펄스 신호 생성기 및 그 동작방법</div>
+<div class="axis-item-venue">Korea – Registration, 10-2155267</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[1]</span>
+<span class="axis-tag">KR REGISTERED</span>
+<span class="axis-item-authors">김태욱, 정택현, <u><b>이근행</b></u></span>
+</div>
+<div class="axis-item-title">데이터 송신 장치, 데이터 수신 장치 및 그를 이용하는 스마트 디바이스</div>
+<div class="axis-item-venue">Korea – Registration, 10-1621853</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 8. PROJECT VIEW (AXIS Lab 아카데믹 테마로 통일) -->
+<div class="page-view" id="view-project">
+<div class="axis-pub-header">
+<h2 class="view-title" style="text-align:left; margin-bottom:12px;">Projects</h2>
+<div class="axis-pub-meta">
+<strong>3</strong> Ongoing &amp; Internal Grants · <span style="color:var(--dodger-vivid); font-weight:700;">National Research Foundation &amp; University Grants</span>
+</div>
+<div class="axis-filter-bar">
+<button class="axis-filter-btn active">All Projects (3)</button>
+<button class="axis-filter-btn">Ongoing (3)</button>
+</div>
+</div>
+<div class="axis-year-row">
+<div class="axis-cards-col" style="grid-column: 1 / -1;">
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[3]</span>
+<span class="axis-tag">NRF 기본연구</span>
+<span class="axis-item-authors">The National Research Foundation of Korea (NRF)</span>
+</div>
+<div class="axis-item-title">차세대 통신-센싱 융합 환경을 위한 초저전력 3차원 각도·거리 통합추정 임펄스-라디오 UWB 하이브리드 빔포밍 레이다 SoC</div>
+<div class="axis-item-venue">과제기간: 2026.09.01 ~ 2031.08.31 (60 months)</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[2]</span>
+<span class="axis-tag">INU GRANT</span>
+<span class="axis-item-authors">INU Internal Research Grant/Project (인천대학교 교내연구과제)</span>
+</div>
+<div class="axis-item-title">고차원 변조 기법을 이용한 UWB IC 개발</div>
+<div class="axis-item-venue">과제기간: 2026.05.01 ~ 2027.04.30</div>
+</div>
+<div class="axis-item-card">
+<div class="axis-item-top">
+<span class="axis-item-num">[1]</span>
+<span class="axis-tag">INU GRANT</span>
+<span class="axis-item-authors">INU Internal Research Grant/Project (인천대학교 교내연구과제)</span>
+</div>
+<div class="axis-item-title">초고속 CMOS 무선 송수신기 연구</div>
+<div class="axis-item-venue">과제기간: 2025.05.01 ~ 2027.04.30</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 9. INVITED TALKS VIEW -->
+<div class="page-view" id="view-invited-talks">
+<h2 class="view-title">Invited Talks and Seminar</h2>
+<div class="card project-theme">
+<div class="sec-head">2026</div>
+<div class="pub-item">
+<p style="text-align:justify;"><span class="pub-num">[6]</span> <span class="pub-title">New connectivity solution – Ultra wideband System Design (Communication to geometrical Sensing in RFIC) - Prof. Geunhaeng Lee</span></p>
+<p class="pub-venue">LIG Nex1</p>
+<p style="color:var(--text-muted); font-size:0.95rem;">26.05.14</p>
+</div>
+<div class="sec-head" style="margin-top:34px;">2025</div>
+<div class="pub-item">
+<p style="text-align:justify;"><span class="pub-num">[5]</span> <span class="pub-title">Basic Electronic Theory Seminar for Junior Freshman Engineer - Prof. Geunhaeng Lee</span></p>
+<p class="pub-venue">STATS ChipPAC Korea</p>
+<p style="color:var(--text-muted); font-size:0.95rem;">25.11.26</p>
+</div>
+<div class="pub-item">
+<p style="text-align:justify;"><span class="pub-num">[4]</span> <span class="pub-title">삼성전자 현직자의 세미나 및 질의응답 시간 - Dr. Hyun-Gi Seok from Samsung Electronics S.LSI</span></p>
+<p class="pub-venue">2025 dept. of ITE, INU Open Lab Seminar</p>
+<p style="color:var(--text-muted); font-size:0.95rem;">25.09.30</p>
+</div>
+<div style="display:flex; gap:24px; align-items:center; margin-top:20px; background:#f8fafc; padding:20px; border-radius:14px; border:1px solid var(--border);">
+<img alt="Open Lab Seminar" referrerpolicy="no-referrer" src="images/New_connectivity_sol_Open_Lab_Seminar_1.jpg" style="width:40%; max-width:320px; border-radius:10px;"/>
+<div>
+<p style="font-size:0.98rem; line-height:1.8;">
+                        삼성전자 석현기 박사님께서 인천대학교 정보통신공학과 OPEN Lab. 행사에 참석해주셔서 학생들에게 귀감이 되는 얘기와 많은 조언들을 해주셨습니다.<br/>
+                        석현기 박사님께서 참석해주신 덕분에 더욱 더 뜻깊은 OPEN Lab. 행사가 될 수 있었던 것 같습니다.
+                    </p>
+</div>
+</div>
+<div class="sec-head" style="margin-top:34px;">2024</div>
+<div class="pub-item">
+<p style="text-align:justify;"><span class="pub-num">[3]</span> <span class="pub-title">UWB 송수신기 개발 동향</span> <a class="pub-link" href="https://www.theieie.org/events/?part=03&amp;c_id=869" target="_blank">[Link]</a> - Prof. Geunhaeng Lee</p>
+<p class="pub-venue">24th RF/Analog IC Workshop (제 24회 RF/아날로그 회로 워크샵)</p>
+<p style="color:var(--text-muted); font-size:0.95rem;">24.09.27</p>
+</div>
+<div class="pub-item">
+<p style="text-align:justify;"><span class="pub-num">[2]</span> <span class="pub-title">Next Connectivity Solution: UWB 기술 소개 및 송수신기 연구 개발 동향</span> <a class="pub-link" href="https://2024summer.kiees.or.kr/html/user/core/view/subpage/190/workshop/inc/data/workshop_2024_summer/2024_summer_workshop_06_240717.pdf" target="_blank">[Link]</a> - Prof. Geunhaeng Lee</p>
+<p class="pub-venue">2024 KIEES Summer Conference (2024 전자파학회 하계종합학술대회)</p>
+<p style="color:var(--text-muted); font-size:0.95rem;">24.08.21</p>
+</div>
+<div class="sec-head" style="margin-top:34px;">2023</div>
+<div class="pub-item">
+<p style="text-align:justify;"><span class="pub-num">[1]</span> <span class="pub-title">최신 반도체 산업 동향-삼성전자 전현직자가 들려주는 이야기</span> <a class="pub-link" href="https://sct.pusan.ac.kr/sct/69192/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc2N0JTJGMTc0MDQlMkYxMjEzOTE1JTJGYXJ0Y2xWaWV3LmRvJTNG" target="_blank">[Link]</a> - Prof. Geunhaeng Lee</p>
+<p class="pub-venue">Pusan National University, Semiconductor Engineering Track</p>
+<p style="color:var(--text-muted); font-size:0.95rem;">23.08.28</p>
+</div>
+</div>
+</div>
+<!-- 10. TEACHING VIEW (2026-2학기만 기본 오픈) -->
+<div class="page-view" id="view-teaching">
+<h2 class="view-title">Teaching</h2>
+<div class="card">
+<details class="teaching-box" open="">
+<summary>2026-2 (Incheon National University)</summary>
+<div class="content">
+<ul>
+<li><strong>Circuit Network Theory (Circuit Theory II)</strong></li>
+<li><strong>Topics in Microwave Circuit Design (Graduate School)</strong></li>
+<li><strong>RISE (Topics on RF Circuit Design Education)</strong></li>
+</ul>
+</div>
+</details>
+<details class="teaching-box">
+<summary>2026-1 (Incheon National University)</summary>
+<div class="content">
+<ul>
+<li><strong>Electronic Physics</strong></li>
+<li><strong>Circuit Theory (Electric Circuits I)</strong></li>
+<li><strong>Advanced Microelectronics (Electronic Circuit II)</strong></li>
+</ul>
+</div>
+</details>
+<details class="teaching-box">
+<summary>2025-2 (Incheon National University)</summary>
+<div class="content">
+<ul>
+<li><strong>Circuit Network Theory (Circuit Theory II)</strong></li>
+<li><strong>Topics in Microwave Circuit Design (Graduate School)</strong></li>
+<li><strong>Introduction to AI and ICT Convergence 2 (Team Teaching)</strong></li>
+</ul>
+</div>
+</details>
+<details class="teaching-box">
+<summary>2025-1 (Incheon National University)</summary>
+<div class="content">
+<ul>
+<li><strong>Electronic Physics</strong></li>
+<li><strong>ICT Engineering Mathematics</strong></li>
+</ul>
+</div>
+</details>
+<details class="teaching-box">
+<summary>2024-2 (Andong National University)</summary>
+<div class="content">
+<ul>
+<li><strong>Microelectronics II (Electronic Circuit II)</strong></li>
+<li><strong>Electric Circuits II</strong></li>
+<li><strong>Capstone Design II (Team Teaching)</strong></li>
+<li><strong>Microelectronics I (Electronic Circuit I) (Regional Innovation System - DGM Track)</strong></li>
+<li><strong>IoT Capstone Design II (Team Teaching) (Regional Innovation System - DGM Track)</strong></li>
+</ul>
+</div>
+</details>
+<details class="teaching-box">
+<summary>2024-1 (Andong National University)</summary>
+<div class="content">
+<ul>
+<li><strong>Microelectronics I (Electronic Circuit I)</strong></li>
+<li><strong>Experiment of Microelectronics I</strong></li>
+<li><strong>Electric Circuits I</strong></li>
+<li><strong>Capstone Design I (Team Teaching)</strong></li>
+<li><strong>IoT Capstone Design I (Team Teaching) (Regional Innovation System - DGM Track)</strong></li>
+</ul>
+</div>
+</details>
+<details class="teaching-box">
+<summary>2023-2 (Andong National University)</summary>
+<div class="content">
+<ul>
+<li><strong>Engineering Mathematics II</strong></li>
+<li><strong>Microprocessor System Design</strong></li>
+<li><strong>Experiment of Microelectronics II</strong></li>
+<li><strong>Capstone Design II (Team Teaching)</strong></li>
+<li><strong>Analog Communication System Design (Graduate School)</strong></li>
+</ul>
+</div>
+</details>
+<details class="teaching-box">
+<summary>2023-1 (Andong National University)</summary>
+<div class="content">
+<ul>
+<li><strong>Engineering Mathematics I</strong></li>
+<li><strong>Microprocessor</strong></li>
+<li><strong>Microelectronics II (Electronic Circuit II)</strong></li>
+<li><strong>Experiment of Microelectronics I</strong></li>
+</ul>
+</div>
+</details>
+</div>
+</div>
+<!-- 11. NEWS VIEW -->
+<div class="page-view" id="view-news">
+<h2 class="view-title">News</h2>
+<div class="card project-theme">
+<div class="sec-head">[2026]</div>
+<div class="pub-item news-entry">
+<div class="news-item-with-img">
+<div class="news-text-wrap">
+<p style="text-align:justify;"><span class="pub-num">[2026.08]</span> Siwon has been selected for the 2026 Master's Student Research Grant Program (석사과정 연구장려금). The selected research project is titled “<strong>임펄스 기반 다중 배열 수신기를 이용한 고정밀 3차원 위치 추정 시스템 IC 설계</strong>”. Through this research grant, Siwon will receive a total of 12 million KRW from September 2026 to August 2027. Congrats!</p>
+</div>
+<div class="news-card-img-wrap" onclick="openImageModal(this.querySelector('img').src, '석사과정 연구장려금 지원 선정')">
+<img alt="Master's Student Research Grant Program" class="news-card-img" referrerpolicy="no-referrer" src="images/news_2026.08_MS.png"/>
+<span class="zoom-badge">🔍 클릭 확대</span>
+</div>
+</div>
+</div>
+<div class="pub-item news-entry">
+<div class="news-item-with-img">
+<div class="news-text-wrap">
+<p style="text-align:justify;"><span class="pub-num">[2026.08]</span> Our research proposal, "<strong>차세대 통신-센싱 융합 환경을 위한 초저전력 3차원 각도·거리 통합추정 임펄스-라디오 UWB 하이브리드 빔포밍 레이다 SoC</strong>," has been selected for the Basic Research Program (기본연구) by the National Research Foundation of Korea (NRF, 한국연구재단). The project will run for 60 months, from September 2026 to August 2031. As our research group's first external project, we hope this will serve as a major stepping stone for our future researches.</p>
+</div>
+<div class="news-card-img-wrap" onclick="openImageModal(this.querySelector('img').src, '개인기초연구사업 기본연구 선정')">
+<img alt="NRF Basic Research Program" class="news-card-img" referrerpolicy="no-referrer" src="images/news_2026.08_NRF_Basic.png"/>
+<span class="zoom-badge">🔍 클릭 확대</span>
+</div>
+</div>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify;"><span class="pub-num">[2026.02]</span> Youngchan and Sungjae have newly joined our ARCS Lab. They will be working in the lab as interns and plan to pursue their Master’s degrees with us after graduation. We warmly congratulate them on joining the lab and wish them a meaningful and rewarding graduate journey.</p>
+</div>
+<div class="sec-head" style="margin-top:34px;">[2025]</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify;"><span class="pub-num">[2025.09]</span> Siwon and Sangwoo have joined ARCS LAB as new members. They plan to begin their research as master's students starting in the 2026-1 semester. We warmly welcome them and hope their degree journey will be both meaningful and rewarding!</p>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify; margin-top:12px;"><span class="pub-num">[2025.07]</span> Our paper (A 2.54 Gbps, 1.22 pJ/bit, IR-UWB Transmitter with a Power-Gating Technique) has been accepted to IEEE TCAS-II. I have been involved as a co-author. I would like to thank my supervisor professor, Tae Wook Kim (Corresponding author) and my co-worker, Kyungseok Song (1st)</p>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify; margin-top:12px;"><span class="pub-num">[2025.05]</span> Our paper (ULP Sliding-IF Receiver with 25% Duty Passive Mixer and Enhanced LO Feed-Through Rejection) has been accepted to IEEE MWTL. I have been involved as a corresponding author. I would like to thank my co-worker, Dr. Hyun-Gi Seok, and research crews of NICE Lab., KAIST (PI : Prof. Sang-Gug Lee).</p>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify; margin-top:12px;"><span class="pub-num">[2025.03]</span> I will be transitioning from the dept. of electronic engineering at Andong National University to the dept. of information and telecommunication Engineering at Incheon National University starting from the 2025 spring semester. I sincerely thank the faculty members at Andong National University. Please support me in this new beginning!</p>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify; margin-top:12px;"><span class="pub-num">[2025.02]</span> Our invited paper from IEEE SoVC 2024 (High-Sensitivity, Low-Power IR-UWB Radar Transceiver with Self-Interference Resistance for Child Presence Detection and Precision Positioning) has been accepted to IEEE JSSC. I have been involved as a co-author. I would like to thank my co-workers at Samsung Electronics.</p>
+</div>
+<div class="sec-head" style="margin-top:34px;">[2024]</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify;"><span class="pub-num">[2024.09]</span> Our paper (A 6-9 GHz 1.28 Gbps 76mA Amplitude and Synchronized Time Shift Keying IR-UWB CMOS Transceiver for Brain Computer Interfaces) has been accepted to IEEE Transactions on Biomedical Circuits and Systems. I have been involved as a first-author (1st). I would like to thank my supervisor professor, Tae Wook Kim (Corresponding author) and my co-workers (Dr. Junyoung Jang, Mr. Kyungseok Song; co-author)</p>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify; margin-top:12px;"><span class="pub-num">[2024.07]</span> My paper (Ultra-Low Power 1 Gbps Amplitude Modulation Ultra-Wideband CMOS Transmitter) has been accepted to IEIE Journal of the Institute of Electronics and Information Engineers as a sole author.</p>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify; margin-top:12px;"><span class="pub-num">[2024.01]</span> Our paper (An Active Track and Hold Circuit with Linearity Enhancement Technique and Its Analysis using Volterra Series) has been accepted to IEEE Access. I have been involved as a co-author (2nd). I would like to thank my supervisor professor, Tae Wook Kim (Corresponding author) and my co-worker (Dr. Junyoung Jang, 1st author)</p>
+</div>
+<div class="sec-head" style="margin-top:34px;">[2023]</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify;"><span class="pub-num">[2023.09]</span> Our invited paper from ISSCC 2023 (A Fully Integrated IEEE 802.15.4/4z Compliant 6.5-8GHz UWB System-on Chip RF Transceiver Supporting Precision Positioning in CMOS 28nm Process ) has been accepted to IEEE JSSC. I have been involved as a co-author (3rd). I would like to thank my co-workers at Samsung Electronics.</p>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify; margin-top:12px;"><span class="pub-num">[2023.04]</span> Our paper (Passive IR-UWB Localization System for UAV-based Electric Facility Inspection during GPS Outage) has been accepted to IEEE Access. I was involved as a co-author (2nd)</p>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify; margin-top:12px;"><span class="pub-num">[2023.04]</span> Our paper (Fully integrated UWB Transceiver, IEEE 802.15.4z) has been invited from IEEE JSSC. I was involved as a co-author (3rd)</p>
+</div>
+<div class="pub-item news-entry">
+<p style="text-align:justify; margin-top:12px;"><span class="pub-num">[2023.03]</span> Geunhaeng has been with dept. of electronic engineering, Andong National University as an assistant professor.</p>
+</div>
+</div>
+</div>
+<!-- 12. LAB. GALLERY VIEW (실제 구글 사이트 정품 이미지 링크로 100% 정상 로딩) -->
+<div class="page-view" id="view-lab-gallery">
+<h2 class="view-title">Lab. Gallery</h2>
+<!-- 2026 Spring Semester Lab. Kick-off Party -->
+<div class="gallery-item"><img alt="2026 Spring Semester Lab. Kick-off Party" referrerpolicy="no-referrer" src="images/view-lab-gallery_2026_Spring_Semester_1.jpg"/>
+<div class="gallery-desc">
+<h3>2026 Spring Semester Lab. Wrap-up Party</h3>
+<p>We have successfully wrapped up the first semester here at ARCS LAB.</p>
+<p>It was a crucial semester for establishing our initial IP, and thanks to the hard work and dedication of our lab family, I believe we've laid a fantastic foundation for our lab's future growth.</p>
+</div>
+</div>
+<!-- 2026 Spring Semester Lab. Wrap-up Party -->
+<div class="gallery-item"><img alt="2026 Spring Semester Lab. Wrap-up Party" referrerpolicy="no-referrer" src="images/view-lab-gallery_2026_Spring_Semester_2.jpg"/>
+<div class="gallery-desc">
+<h3>2026 Spring Semester Lab. Kick-off Party</h3>
+<p style="color:#000000;">This 2026 spring semester is the real starting point for our ARCS Lab.</p>
+<p style="color:#000000;">Let's all give it our best to do meaningful research and get great results!</p>
+</div>
+</div>
+</div>
+<!-- 푸터 -->
+<footer>
+<div style="max-width:1140px; margin:0 auto; padding:0 20px;">
+<p style="font-weight:800; color:var(--primary); margin-bottom:4px;">ARCS Lab | Incheon National University</p>
+<p>© 2026 ARCS Lab. All rights reserved. | Contact: ghaenglee@inu.ac.kr</p>
+</div>
+</footer>
+
+<!-- 이미지 확대용 모달 (Lightbox) -->
+<div class="img-modal-overlay" id="imgModalOverlay" onclick="closeImageModal()">
+<span class="img-modal-close" onclick="closeImageModal()">✕</span>
+<img alt="확대 이미지" class="img-modal-content" id="imgModalTarget" onclick="event.stopPropagation();" src=""/>
+</div>
+
+<!-- 페이지 전환 스크립트 -->
+<script>
+        function openImageModal(imgSrc, altText) {
+            const overlay = document.getElementById('imgModalOverlay');
+            const target = document.getElementById('imgModalTarget');
+            if (overlay && target) {
+                target.src = imgSrc;
+                target.alt = altText || '확대 이미지';
+                overlay.classList.add('active');
+            }
+        }
+
+        function closeImageModal() {
+            const overlay = document.getElementById('imgModalOverlay');
+            if (overlay) {
+                overlay.classList.remove('active');
+            }
+        }
+
+        // ESC 키로 팝업 닫기 지원
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeImageModal();
+            }
+        });
+
+        function closeMobileMenu() {
+            const menu = document.querySelector('.nav-menu');
+            const toggle = document.getElementById('mobile-menu-toggle');
+
+            if (menu) menu.classList.remove('mobile-open');
+
+            if (toggle) {
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.setAttribute('aria-label', '메뉴 열기');
+                toggle.textContent = '☰';
+            }
+
+            document.querySelectorAll('.nav-item.open').forEach(function(item) {
+                item.classList.remove('open');
+            });
+        }
+
+        function toggleMobileMenu(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            const menu = document.querySelector('.nav-menu');
+            const toggle = document.getElementById('mobile-menu-toggle');
+
+            if (!menu || !toggle) return;
+
+            const isOpen = !menu.classList.contains('mobile-open');
+            menu.classList.toggle('mobile-open', isOpen);
+            toggle.setAttribute('aria-expanded', String(isOpen));
+            toggle.setAttribute('aria-label', isOpen ? '메뉴 닫기' : '메뉴 열기');
+            toggle.textContent = isOpen ? '✕' : '☰';
+        }
+
+        function toggleMobileSubmenu(event, button) {
+            if (window.innerWidth > 900) return;
+
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+
+            const item = button.closest('.nav-item');
+            if (!item) return;
+
+            const wasOpen = item.classList.contains('open');
+
+            document.querySelectorAll('.nav-item.open').forEach(function(other) {
+                if (other !== item) other.classList.remove('open');
+            });
+
+            item.classList.toggle('open', !wasOpen);
+        }
+
+        function showView(viewName, scrollTargetId) {
+            document.querySelectorAll('.page-view').forEach(function(view) {
+                view.classList.remove('active');
+            });
+
+            const targetView = document.getElementById('view-' + viewName);
+            if (targetView) targetView.classList.add('active');
+
+            document.querySelectorAll('.nav-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+
+            if (viewName === 'home') document.getElementById('btn-home')?.classList.add('active');
+            if (viewName === 'pi' || viewName === 'student') document.getElementById('btn-family')?.classList.add('active');
+            if (viewName === 'research' || viewName === 'chips') document.getElementById('btn-research')?.classList.add('active');
+            if (viewName === 'publications' || viewName === 'patents') document.getElementById('btn-achievement')?.classList.add('active');
+            if (viewName === 'project') document.getElementById('btn-project')?.classList.add('active');
+            if (viewName === 'invited-talks') document.getElementById('btn-talks')?.classList.add('active');
+            if (viewName === 'teaching') document.getElementById('btn-teaching')?.classList.add('active');
+            if (viewName === 'news') document.getElementById('btn-news')?.classList.add('active');
+            if (viewName === 'lab-gallery') document.getElementById('btn-gallery')?.classList.add('active');
+
+            closeMobileMenu();
+
+            if (scrollTargetId) {
+                setTimeout(function() {
+                    const el = document.getElementById(scrollTargetId);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 900) closeMobileMenu();
+        });
+    </script>
+</body>
+</html>
