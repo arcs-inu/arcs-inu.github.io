@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-
 <html lang="ko">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
 <!-- 외부 호스팅 이미지 403 차단 방지 -->
 <meta content="no-referrer" name="referrer"/>
 <title>ARCS Lab | Advanced Radio-Frequency Integrated Circuit and System Design Lab.</title>
@@ -24,7 +23,7 @@
             --dodger-dark: #0056cc;         /* Solid Dark Dodger */
             --dodger-bg: #edf5ff;           /* Light Dodger Tint */
             --text-main: #000000;
-            --text-muted: #000000;
+            --text-muted: #475569;
             --shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
             --shadow-hover: 0 8px 24px rgba(30, 144, 255, 0.12);
         }
@@ -37,10 +36,11 @@
             background-color: var(--bg-base);
             line-height: 1.75;
             word-break: keep-all;
+            overflow-x: hidden;
         }
         a { text-decoration: none; color: inherit; }
 
-        /* 상단 네비게이션: 블러 및 네온 없음 */
+        /* 상단 네비게이션 */
         header {
             position: sticky; top: 0; z-index: 1000;
             background: #ffffff;
@@ -54,7 +54,7 @@
             height: 70px;
         }
         .logo-wrap { display: flex; align-items: center; gap: 12px; cursor: pointer; flex-shrink: 0; }
-        .logo-img { height: 42px; width: auto; }
+        .logo-img { height: 42px; width: auto; max-width: 100%; object-fit: contain; }
         .logo-text { font-size: 1.35rem; font-weight: 800; color: var(--primary); letter-spacing: -0.5px; }
         .logo-text span { color: var(--dodger-blue); }
 
@@ -69,7 +69,7 @@
         .nav-btn:hover { color: var(--dodger-vivid); background: var(--dodger-bg); }
         .nav-btn.active { color: #ffffff; background: var(--dodger-blue); }
 
-        /* 드롭다운 메뉴 */
+        /* 드롭다운 메뉴 (데스크톱) */
         .dropdown {
             position: absolute; top: 100%; left: 0;
             background: #ffffff; border: 1.5px solid var(--border);
@@ -101,7 +101,7 @@
             padding: 34px; box-shadow: var(--shadow); margin-bottom: 24px; 
         }
 
-        /* AXIS 연구실 스타일 융합 히어로 섹션 */
+        /* 히어로 섹션 */
         .bento-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
         .axis-hero-card {
             grid-column: 1 / -1; text-align: center; padding: 64px 30px;
@@ -189,7 +189,6 @@
         .chip-card:hover { transform: translateY(-4px); border-color: var(--dodger-blue); box-shadow: var(--shadow-hover); }
         .chip-img-wrap { width: 100%; height: 220px; background: #f8fafc; border-bottom: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; }
         .chip-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
-        /* High Speed Active Sampler: schematic crop removed, chip area fills the card */
         .chip-img-wrap.chip-only { overflow: hidden; }
         .chip-img-wrap.chip-only img { width: 100%; max-width: none; height: 100%; object-fit: contain; object-position: center; transform: none; background: #f8fafc; }
         .chip-desc { padding: 18px; text-align: center; }
@@ -221,6 +220,8 @@
         .axis-item-card {
             background: #ffffff; border: 1.5px solid var(--border-card); border-radius: 12px;
             padding: 18px 22px; transition: all 0.2s ease;
+            word-break: break-word;
+            overflow-wrap: anywhere;
         }
         .axis-item-card:hover {
             border-color: var(--dodger-blue); transform: translateX(3px); box-shadow: 0 4px 16px rgba(30, 144, 255, 0.08);
@@ -268,102 +269,6 @@
         /* 푸터 */
         footer { border-top: 2px solid var(--border); background: #ffffff; padding: 40px 0; text-align: center; font-size: 0.9rem; color: var(--text-muted); }
 
-        /* 모바일 네비게이션 */
-        .mobile-menu-toggle {
-            display: none;
-            width: 44px;
-            height: 44px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: #fff;
-            color: var(--primary);
-            font-size: 1.35rem;
-            font-weight: 800;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        @media (max-width: 900px) {
-            .nav-inner {
-                height: auto;
-                min-height: 64px;
-                padding: 10px 16px;
-                position: relative;
-            }
-
-            .logo-img { height: 36px; }
-            .logo-text { font-size: 1.05rem; }
-            .mobile-menu-toggle { display: flex; }
-
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: calc(100% + 1px);
-                left: 0;
-                right: 0;
-                padding: 10px 14px 14px;
-                background: #fff;
-                border-bottom: 1px solid var(--border);
-                box-shadow: 0 10px 24px rgba(0,0,0,.08);
-                flex-direction: column;
-                align-items: stretch;
-                gap: 4px;
-                flex-wrap: nowrap;
-                z-index: 1100;
-            }
-
-            .nav-menu.mobile-open { display: flex; }
-            .nav-item { width: 100%; }
-
-            .nav-btn {
-                width: 100%;
-                justify-content: space-between;
-                text-align: left;
-                padding: 12px 14px;
-                font-size: 1rem;
-            }
-
-            .dropdown {
-                position: static;
-                width: 100%;
-                min-width: 0;
-                display: none;
-                border: 0;
-                border-left: 2px solid var(--dodger-blue);
-                border-radius: 0 8px 8px 0;
-                box-shadow: none;
-                padding: 4px 0 4px 8px;
-                margin: 0 0 4px 8px;
-                gap: 2px;
-            }
-
-            .nav-item:hover .dropdown { display: none; }
-            .nav-item.open .dropdown { display: flex; }
-
-            .dropdown button {
-                width: 100%;
-                padding: 10px 14px;
-                font-size: .95rem;
-            }
-
-            .bento-grid { grid-template-columns: 1fr; }
-            .axis-hero-title { font-size: 2.1rem; }
-            .axis-year-row { grid-template-columns: 1fr; gap: 10px; }
-            .profile-row { flex-direction: column; }
-            .profile-img { width: 100%; max-width: 240px; }
-            .gallery-item { flex-direction: column; }
-            .gallery-item img { width: 100%; max-width: 100%; }
-        }
-
-        @media (max-width: 520px) {
-            .logo-text { display: none; }
-            .nav-inner { padding-left: 12px; padding-right: 12px; }
-            .page-view { margin-top: 24px; padding: 0 14px; }
-            .view-title { font-size: 1.8rem; }
-        }
-
         /* Projects theme shared by Invited Talks and News */
         .project-theme { background: transparent; border: 0; box-shadow: none; padding: 0; }
         .project-theme .sec-head {
@@ -386,8 +291,6 @@
             background: var(--dodger-blue);
             border-radius: 50%;
         }
-        .project-theme .pub-item { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; margin-top: 12px; box-shadow: 0 6px 18px rgba(15,23,42,.06); }
-        .project-theme .pub-item + .pub-item { margin-top: 14px; }
         .project-theme .pub-item {
             position: relative;
             padding: 20px 22px 18px 22px;
@@ -396,7 +299,11 @@
             border-radius: 14px;
             box-shadow: 0 5px 16px rgba(15,23,42,.055);
             transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+            margin-top: 12px;
+            word-break: break-word;
+            overflow-wrap: anywhere;
         }
+        .project-theme .pub-item + .pub-item { margin-top: 14px; }
         .project-theme .pub-item:hover {
             transform: translateY(-3px);
             border-color: #9bc9ff;
@@ -456,22 +363,6 @@
             pointer-events: none;
             backdrop-filter: blur(2px);
         }
-        @media (max-width: 800px) {
-            .news-item-with-img {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 14px;
-            }
-            .news-card-img-wrap {
-                width: 100%;
-                max-width: 360px;
-            }
-            .news-card-img {
-                max-height: none;
-                width: 100%;
-                max-width: 100%;
-            }
-        }
 
         /* 이미지 확대 팝업 모달 (Lightbox) */
         .img-modal-overlay {
@@ -511,6 +402,224 @@
         }
         .img-modal-close:hover {
             color: var(--dodger-blue);
+        }
+
+        /* 모바일 햄버거 토글 버튼 */
+        .mobile-menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #fff;
+            color: var(--primary);
+            font-size: 1.35rem;
+            font-weight: 800;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            outline: none;
+        }
+
+        /* ==========================================================================
+           모바일 및 반응형 강화 스타일 (900px 이하 / 520px 이하)
+           ========================================================================== */
+        @media (max-width: 900px) {
+            .nav-inner {
+                height: 64px;
+                padding: 10px 16px;
+                position: relative;
+            }
+
+            .logo-img { height: 36px; }
+            .logo-text { font-size: 1.15rem; }
+            .mobile-menu-toggle { display: flex; }
+
+            /* 슬라이드 다운 모바일 메뉴 */
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                padding: 12px 16px 18px;
+                background: #ffffff;
+                border-bottom: 2px solid var(--border);
+                box-shadow: 0 12px 24px rgba(0,0,0,.08);
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+                flex-wrap: nowrap;
+                z-index: 1100;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+            }
+
+            .nav-menu.mobile-open { display: flex; }
+            .nav-item { width: 100%; }
+
+            .nav-btn {
+                width: 100%;
+                justify-content: space-between;
+                text-align: left;
+                padding: 12px 14px;
+                font-size: 0.98rem;
+                border-radius: 8px;
+            }
+
+            /* 모바일 드롭다운 아코디언 */
+            .dropdown {
+                position: static;
+                width: 100%;
+                min-width: 0;
+                display: none;
+                border: 0;
+                border-left: 3px solid var(--dodger-blue);
+                border-radius: 0 8px 8px 0;
+                box-shadow: none;
+                background: #f8fafc;
+                padding: 6px 0 6px 12px;
+                margin: 4px 0 4px 8px;
+                gap: 2px;
+            }
+
+            .nav-item:hover .dropdown { display: none; }
+            .nav-item.open .dropdown { display: flex; }
+
+            .dropdown button {
+                width: 100%;
+                padding: 10px 12px;
+                font-size: 0.93rem;
+            }
+
+            /* 뷰 컨테이너 및 기본 카드 */
+            .page-view { margin: 24px auto 60px auto; padding: 0 16px; }
+            .card { padding: 22px 18px; border-radius: 14px; margin-bottom: 18px; }
+            .view-title { font-size: 1.85rem; margin-bottom: 20px; }
+
+            /* 히어로 섹션 모바일 */
+            .axis-hero-card {
+                padding: 42px 18px;
+                border-radius: 16px;
+            }
+            .axis-hero-title {
+                font-size: clamp(1.4rem, 5.5vw, 2.1rem);
+                line-height: 1.35;
+                margin-bottom: 14px;
+            }
+            .axis-hero-sub {
+                font-size: 1.05rem;
+                line-height: 1.55;
+            }
+            .axis-hero-p {
+                font-size: 0.94rem;
+                line-height: 1.7;
+                margin-bottom: 24px;
+            }
+            .axis-actions {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+            }
+            .btn-explore, .btn-join {
+                width: 100%;
+                justify-content: center;
+                padding: 12px 18px;
+                font-size: 0.95rem;
+            }
+
+            /* Home 하단 정보 카드 */
+            .home-info-card { min-height: 0; padding: 24px 18px; }
+            .home-info-card > .sec-head { font-size: 1.3rem; }
+
+            /* 프로필 뷰 */
+            .profile-row {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 16px;
+            }
+            .profile-img { width: 140px; }
+            .profile-info { width: 100%; }
+
+            /* 칩 갤러리 그리드 */
+            .chip-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .chip-img-wrap { height: 200px; }
+
+            /* 논문 / 특허 / 프로젝트 목록 */
+            .axis-year-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin-bottom: 24px;
+            }
+            .axis-year-label {
+                font-size: 1.4rem;
+                border-bottom: 2px solid var(--dodger-bg);
+                padding-bottom: 4px;
+            }
+            .axis-item-card {
+                padding: 16px;
+            }
+            .axis-item-title {
+                font-size: 1rem;
+            }
+
+            /* 랩 갤러리 */
+            .gallery-item {
+                flex-direction: column;
+                padding: 18px;
+                gap: 14px;
+            }
+            .gallery-item img {
+                width: 100%;
+                max-width: 100%;
+            }
+            .gallery-desc {
+                width: 100%;
+            }
+
+            /* 뉴스 뷰 이미지 아이템 */
+            .news-item-with-img {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+            .news-card-img-wrap {
+                width: 100%;
+                max-width: 100%;
+            }
+            .news-card-img {
+                max-height: 220px;
+                width: 100%;
+                object-fit: contain;
+            }
+
+            /* 세미나 사진 박스 */
+            #view-invited-talks .card > div[style*="display:flex"] {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px;
+            }
+            #view-invited-talks .card > div[style*="display:flex"] img {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .nav-inner { padding: 8px 12px; }
+            .logo-text { font-size: 1.05rem; }
+            .logo-img { height: 32px; }
+            .page-view { margin-top: 16px; padding: 0 12px; }
+            .card { padding: 18px 14px; }
+            .view-title { font-size: 1.55rem; margin-bottom: 16px; }
+            .sec-head { font-size: 1.2rem; }
+            .axis-filter-bar { gap: 6px; }
+            .axis-filter-btn { padding: 5px 12px; font-size: 0.82rem; }
         }
     </style>
 </head>
