@@ -266,6 +266,144 @@
         .gallery-desc h3 { font-size: 1.35rem; font-weight: 800; margin-bottom: 12px; color: var(--primary); }
         .gallery-desc p { font-size: 1rem; font-weight: 700; line-height: 1.8; }
 
+        /* LAB GALLERY 4-photo album */
+        .gallery-item-album {
+            display: flex;
+            gap: 26px;
+            align-items: center;
+        }
+        .gallery-album-grid {
+            width: 50%;
+            max-width: 480px;
+            aspect-ratio: 4 / 3;
+            flex-shrink: 0;
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+        .gallery-album-photo {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            aspect-ratio: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #f8fafc;
+            cursor: zoom-in;
+            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .gallery-album-photo:hover {
+            transform: translateY(-2px);
+            border-color: var(--dodger-blue);
+            box-shadow: 0 4px 14px rgba(30, 144, 255, 0.18);
+        }
+        .gallery-album-photo img {
+            width: 100%;
+            max-width: none;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .gallery-album-photo .zoom-badge {
+            bottom: 6px;
+            right: 6px;
+        }
+
+        /* Gallery album lightbox */
+        .gallery-lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2100;
+            background: rgba(7, 20, 38, 0.90);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow: hidden;
+            cursor: grab;
+            touch-action: none;
+        }
+        .gallery-lightbox.active {
+            display: flex;
+        }
+        .gallery-lightbox:active {
+            cursor: grabbing;
+        }
+        .gallery-lightbox-content {
+            max-width: none;
+            max-height: none;
+            width: auto;
+            height: auto;
+            max-width: 92vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.2);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            user-select: none;
+            -webkit-user-drag: none;
+            transform: translate(0, 0) scale(1);
+            transform-origin: center center;
+            cursor: grab;
+        }
+        .gallery-lightbox-content.dragging {
+            cursor: grabbing;
+        }
+        .gallery-lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 24px;
+            z-index: 2;
+            font-size: 2.2rem;
+            color: #ffffff;
+            cursor: pointer;
+            font-weight: 300;
+            line-height: 1;
+        }
+        .gallery-lightbox-close:hover {
+            color: var(--dodger-blue);
+        }
+        .gallery-lightbox-prev,
+        .gallery-lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            width: 46px;
+            height: 46px;
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 50%;
+            background: rgba(10,27,51,0.62);
+            color: #ffffff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery-lightbox-prev { left: 20px; }
+        .gallery-lightbox-next { right: 20px; }
+        .gallery-lightbox-prev:hover,
+        .gallery-lightbox-next:hover {
+            background: var(--dodger-blue);
+        }
+        .gallery-lightbox-hint {
+            position: absolute;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.86);
+            font-size: 0.82rem;
+            font-weight: 700;
+            background: rgba(10,27,51,0.55);
+            padding: 5px 10px;
+            border-radius: 6px;
+            pointer-events: none;
+        }
+
         /* 푸터 */
         footer { border-top: 2px solid var(--border); background: #ffffff; padding: 40px 0; text-align: center; font-size: 0.9rem; color: var(--text-muted); }
 
@@ -584,6 +722,36 @@
                 width: 100%;
             }
 
+            /* 4-photo album: mobile only */
+            .gallery-item-album {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .gallery-album-grid {
+                width: 100%;
+                max-width: 100%;
+                aspect-ratio: 4 / 3;
+            }
+            .gallery-lightbox {
+                padding: 12px;
+            }
+            .gallery-lightbox-content {
+                max-width: 94vw;
+                max-height: 84vh;
+            }
+            .gallery-lightbox-prev,
+            .gallery-lightbox-next {
+                width: 40px;
+                height: 40px;
+                font-size: 1.45rem;
+            }
+            .gallery-lightbox-prev { left: 8px; }
+            .gallery-lightbox-next { right: 8px; }
+            .gallery-lightbox-hint {
+                bottom: 10px;
+                font-size: 0.72rem;
+            }
+
             /* 뉴스 뷰 이미지 아이템 */
             .news-item-with-img {
                 flex-direction: column;
@@ -611,7 +779,6 @@
                 max-width: 100% !important;
             }
         }
-
         @media (max-width: 520px) {
             .nav-inner { padding: 8px 12px; }
             .logo-text { font-size: 1.05rem; }
@@ -1703,6 +1870,33 @@
 <!-- 12. LAB. GALLERY VIEW -->
 <div class="page-view" id="view-lab-gallery">
 <h2 class="view-title">Lab. Gallery</h2>
+
+<!-- 2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju -->
+<div class="gallery-item gallery-item-album">
+<div class="gallery-album-grid">
+<div class="gallery-album-photo" onclick="openGalleryAlbum(0)">
+<img alt="2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju - Photo 1" referrerpolicy="no-referrer" src="images/Album_202609_Conference_1.jpg"/>
+<span class="zoom-badge">🔍 클릭 확대</span>
+</div>
+<div class="gallery-album-photo" onclick="openGalleryAlbum(1)">
+<img alt="2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju - Photo 2" referrerpolicy="no-referrer" src="images/Album_202609_Conference_2.jpg"/>
+<span class="zoom-badge">🔍 클릭 확대</span>
+</div>
+<div class="gallery-album-photo" onclick="openGalleryAlbum(2)">
+<img alt="2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju - Photo 3" referrerpolicy="no-referrer" src="images/Album_202609_Conference_3.jpg"/>
+<span class="zoom-badge">🔍 클릭 확대</span>
+</div>
+<div class="gallery-album-photo" onclick="openGalleryAlbum(3)">
+<img alt="2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju - Photo 4" referrerpolicy="no-referrer" src="images/Album_202609_Conference_4.jpg"/>
+<span class="zoom-badge">🔍 클릭 확대</span>
+</div>
+</div>
+<div class="gallery-desc">
+<h3>2026 Fall Semester Lab Kick-off Party &amp; RF/Analog Workshop in Jeju</h3>
+<p>Our laboratory officially started the Fall 2026 semester in Jeju, blending our semester kick-off with the 2026 RF/Analog Workshop. It was a wonderful opportunity for students to gather new insights, get inspired, and return fully recharged—ready to tackle another productive semester!</p>
+</div>
+</div>
+
 <!-- 2026 Spring Semester Lab. Kick-off Party -->
 <div class="gallery-item"><img alt="2026 Spring Semester Lab. Kick-off Party" referrerpolicy="no-referrer" src="images/view-lab-gallery_2026_Spring_Semester_1.jpg"/>
 <div class="gallery-desc">
@@ -1711,6 +1905,7 @@
 <p>It was a crucial semester for establishing our initial IP, and thanks to the hard work and dedication of our lab family, I believe we've laid a fantastic foundation for our lab's future growth.</p>
 </div>
 </div>
+
 <!-- 2026 Spring Semester Lab. Wrap-up Party -->
 <div class="gallery-item"><img alt="2026 Spring Semester Lab. Wrap-up Party" referrerpolicy="no-referrer" src="images/view-lab-gallery_2026_Spring_Semester_2.jpg"/>
 <div class="gallery-desc">
@@ -1729,6 +1924,15 @@
 </div>
 </footer>
 
+<!-- Lab Gallery album lightbox -->
+<div class="gallery-lightbox" id="galleryLightbox" onclick="closeGalleryAlbum(event)">
+<span class="gallery-lightbox-close" onclick="closeGalleryAlbum(event)">✕</span>
+<button class="gallery-lightbox-prev" type="button" aria-label="Previous photo" onclick="changeGalleryAlbum(-1, event)">‹</button>
+<img alt="Lab Gallery enlarged photo" class="gallery-lightbox-content" id="galleryLightboxTarget" src="" onclick="event.stopPropagation();"/>
+<button class="gallery-lightbox-next" type="button" aria-label="Next photo" onclick="changeGalleryAlbum(1, event)">›</button>
+<div class="gallery-lightbox-hint">Drag to move · ← → to browse · ESC to close</div>
+</div>
+
 <!-- 이미지 확대용 모달 (Lightbox) -->
 <div class="img-modal-overlay" id="imgModalOverlay" onclick="closeImageModal()">
 <span class="img-modal-close" onclick="closeImageModal()">✕</span>
@@ -1737,6 +1941,137 @@
 
 <!-- 통합 페이지 스크립트 -->
 <script>
+        const galleryAlbumImages = [
+            'images/Album_202609_Conference_1.jpg',
+            'images/Album_202609_Conference_2.jpg',
+            'images/Album_202609_Conference_3.jpg',
+            'images/Album_202609_Conference_4.jpg'
+        ];
+        let galleryAlbumIndex = 0;
+        let galleryAlbumDragging = false;
+        let galleryAlbumMoved = false;
+        let galleryAlbumStartX = 0;
+        let galleryAlbumStartY = 0;
+        let galleryAlbumX = 0;
+        let galleryAlbumY = 0;
+        let galleryAlbumScale = 1;
+
+        function updateGalleryAlbumTransform() {
+            const target = document.getElementById('galleryLightboxTarget');
+            if (!target) return;
+            target.style.transform = 'translate(' + galleryAlbumX + 'px, ' + galleryAlbumY + 'px) scale(' + galleryAlbumScale + ')';
+        }
+
+        function openGalleryAlbum(index) {
+            const overlay = document.getElementById('galleryLightbox');
+            const target = document.getElementById('galleryLightboxTarget');
+            if (!overlay || !target) return;
+
+            galleryAlbumIndex = index;
+            galleryAlbumX = 0;
+            galleryAlbumY = 0;
+            galleryAlbumScale = 1;
+            target.src = galleryAlbumImages[galleryAlbumIndex];
+            target.alt = '2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju - Photo ' + (galleryAlbumIndex + 1);
+            target.classList.remove('dragging');
+            updateGalleryAlbumTransform();
+            overlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGalleryAlbum(event) {
+            if (event) {
+                if (event.target && event.target.closest('.gallery-lightbox-content, .gallery-lightbox-prev, .gallery-lightbox-next')) return;
+                if (event.target && event.target.closest('.gallery-lightbox-close')) {
+                    event.stopPropagation();
+                }
+            }
+            const overlay = document.getElementById('galleryLightbox');
+            if (overlay) overlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changeGalleryAlbum(direction, event) {
+            if (event) event.stopPropagation();
+            galleryAlbumIndex = (galleryAlbumIndex + direction + galleryAlbumImages.length) % galleryAlbumImages.length;
+            const target = document.getElementById('galleryLightboxTarget');
+            if (!target) return;
+            galleryAlbumX = 0;
+            galleryAlbumY = 0;
+            galleryAlbumScale = 1;
+            target.src = galleryAlbumImages[galleryAlbumIndex];
+            target.alt = '2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju - Photo ' + (galleryAlbumIndex + 1);
+            updateGalleryAlbumTransform();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const lightbox = document.getElementById('galleryLightbox');
+            const target = document.getElementById('galleryLightboxTarget');
+            if (!lightbox || !target) return;
+
+            target.addEventListener('mousedown', function(e) {
+                galleryAlbumDragging = true;
+                galleryAlbumMoved = false;
+                galleryAlbumStartX = e.clientX - galleryAlbumX;
+                galleryAlbumStartY = e.clientY - galleryAlbumY;
+                target.classList.add('dragging');
+                e.preventDefault();
+            });
+
+            window.addEventListener('mousemove', function(e) {
+                if (!galleryAlbumDragging) return;
+                const nextX = e.clientX - galleryAlbumStartX;
+                const nextY = e.clientY - galleryAlbumStartY;
+                if (Math.abs(nextX - galleryAlbumX) > 2 || Math.abs(nextY - galleryAlbumY) > 2) {
+                    galleryAlbumMoved = true;
+                }
+                galleryAlbumX = nextX;
+                galleryAlbumY = nextY;
+                updateGalleryAlbumTransform();
+            });
+
+            window.addEventListener('mouseup', function() {
+                galleryAlbumDragging = false;
+                target.classList.remove('dragging');
+            });
+
+            target.addEventListener('touchstart', function(e) {
+                if (!e.touches.length) return;
+                galleryAlbumDragging = true;
+                galleryAlbumMoved = false;
+                galleryAlbumStartX = e.touches[0].clientX - galleryAlbumX;
+                galleryAlbumStartY = e.touches[0].clientY - galleryAlbumY;
+                target.classList.add('dragging');
+            }, {passive:false});
+
+            target.addEventListener('touchmove', function(e) {
+                if (!galleryAlbumDragging || !e.touches.length) return;
+                const nextX = e.touches[0].clientX - galleryAlbumStartX;
+                const nextY = e.touches[0].clientY - galleryAlbumStartY;
+                if (Math.abs(nextX - galleryAlbumX) > 2 || Math.abs(nextY - galleryAlbumY) > 2) {
+                    galleryAlbumMoved = true;
+                }
+                galleryAlbumX = nextX;
+                galleryAlbumY = nextY;
+                updateGalleryAlbumTransform();
+                e.preventDefault();
+            }, {passive:false});
+
+            target.addEventListener('touchend', function() {
+                galleryAlbumDragging = false;
+                target.classList.remove('dragging');
+            });
+
+            // Mouse wheel zoom in the enlarged album photo.
+            lightbox.addEventListener('wheel', function(e) {
+                if (!lightbox.classList.contains('active')) return;
+                e.preventDefault();
+                galleryAlbumScale += e.deltaY < 0 ? 0.12 : -0.12;
+                galleryAlbumScale = Math.min(3, Math.max(1, galleryAlbumScale));
+                updateGalleryAlbumTransform();
+            }, {passive:false});
+        });
+
         function openImageModal(imgSrc, altText) {
             const overlay = document.getElementById('imgModalOverlay');
             const target = document.getElementById('imgModalTarget');
@@ -1757,6 +2092,15 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeImageModal();
+                const album = document.getElementById('galleryLightbox');
+                if (album && album.classList.contains('active')) {
+                    album.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+            if (document.getElementById('galleryLightbox')?.classList.contains('active')) {
+                if (e.key === 'ArrowLeft') changeGalleryAlbum(-1);
+                if (e.key === 'ArrowRight') changeGalleryAlbum(1);
             }
         });
 
