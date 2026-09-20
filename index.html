@@ -790,7 +790,49 @@
             .axis-filter-bar { gap: 6px; }
             .axis-filter-btn { padding: 5px 12px; font-size: 0.82rem; }
         }
-    </style>
+    
+        /* Requested sections only: word-safe wrapping + justified body text */
+        #latest-news,
+        #brief-bio,
+        #view-invited-talks,
+        #view-news,
+        #view-lab-gallery {
+            word-break: normal;
+            overflow-wrap: normal;
+            hyphens: none;
+        }
+
+        #latest-news > .sec-head,
+        #brief-bio > .sec-head,
+        #view-invited-talks > .view-title,
+        #view-news > .view-title,
+        #view-lab-gallery > .view-title {
+            text-align: left;
+            word-break: normal;
+            overflow-wrap: normal;
+            hyphens: none;
+        }
+
+        #latest-news p,
+        #latest-news > div:not(.sec-head),
+        #brief-bio p,
+        #view-invited-talks p,
+        #view-news p,
+        #view-lab-gallery .gallery-desc p {
+            text-align: justify;
+            word-break: normal;
+            overflow-wrap: normal;
+            hyphens: none;
+        }
+
+        /* Achievement navigation label */
+        #btn-achievement {
+            word-break: normal;
+            overflow-wrap: normal;
+            hyphens: none;
+        }
+
+</style>
 </head>
 <body>
 <!-- 상단 헤더 -->
