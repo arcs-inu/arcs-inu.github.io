@@ -188,11 +188,11 @@
 
         /* 섹션 헤더 */
         .sec-head { 
-            font-size: 1.35rem; font-weight: 800; color: var(--primary); margin-bottom: 22px; 
+            font-size: 1.45rem; font-weight: 800; color: var(--primary); margin-bottom: 22px; 
             display: flex; align-items: center; gap: 10px; 
         }
         .sec-head::before { 
-            content: ""; width: 5px; height: 20px; background: var(--dodger-blue); border-radius: 3px; 
+            content: ""; width: 5px; height: 22px; background: var(--dodger-blue); border-radius: 3px; 
         }
 
         /* 프로필 스타일 */
@@ -201,6 +201,64 @@
         .profile-info h3 { font-size: 1.45rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
         .profile-info p { margin-bottom: 6px; font-size: 1rem; }
         .profile-links a { color: var(--dodger-vivid); font-weight: 700; text-decoration: underline; margin-right: 8px; }
+
+        /* Education, Careers & Awards 타임라인 스타일 (왼쪽 바/꼭지 제거 버전) */
+        .timeline-list {
+            position: relative;
+            padding-left: 0;
+            margin-bottom: 8px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 22px;
+            padding: 22px 26px;
+            background: #f8fafc;
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            transition: all 0.25s ease;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item:hover {
+            background: #ffffff;
+            border-color: var(--dodger-blue);
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        /* 폰트 및 여백 상향 */
+        .timeline-date {
+            display: inline-block;
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: var(--dodger-dark);
+            background: var(--dodger-bg);
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+        .timeline-content {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1.55;
+            display: block;
+        }
+        .timeline-subtext {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+        .timeline-detail {
+            display: block;
+            font-size: 0.95rem;
+            color: #475569;
+            margin-top: 8px;
+            padding-left: 12px;
+            border-left: 3px solid #cbd5e1;
+            line-height: 1.75;
+        }
 
         /* CHIP GALLERY 카드 */
         .chip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
@@ -277,7 +335,7 @@
         details.teaching-box .content { padding: 20px 24px; }
         details.teaching-box ul { padding-left: 20px; line-height: 2; list-style-type: square; }
 
-        /* LAB GALLERY 카드 - 글자 문단 높이에 맞춰 이미지 축소 및 여백 정밀 조절 */
+        /* LAB GALLERY 카드 */
         .gallery-item {
             display: flex; gap: 24px; align-items: center; margin-bottom: 24px; background: #ffffff; 
             border: 1.5px solid var(--border); border-radius: 16px; padding: 20px 24px; box-shadow: var(--shadow);
@@ -996,7 +1054,7 @@
 </div>
 </div>
 
-<!-- 2. PI VIEW -->
+<!-- 2. PI VIEW (Education, Careers & Awards 깔끔한 카드 스타일) -->
 <div class="page-view" id="view-pi">
 <h2 class="view-title">Principal Investigator</h2>
 <div class="card">
@@ -1014,53 +1072,93 @@
                     Incheon National University</p>
 </div>
 </div>
+
+<!-- Education 섹션 -->
 <div class="divider"></div>
 <div class="sec-head">Education</div>
-<p><strong>Ph.D. in Electrical and Electronic Engineering, Yonsei University, Seoul</strong> (March. 2014 ~ Feb. 2021)<br/>
-            • Combined Master &amp; Ph.D. in Electrical and Electronic Engineering (Advisor: Prof. Tae Wook Kim)</p>
-<p style="margin-top:10px;"><strong>B.S. in Electronic and Electrical Engineering, Dankook University, Kyung-Ki</strong> (March. 2010 ~ Feb. 2014)</p>
+<div class="timeline-list">
+    <div class="timeline-item">
+        <span class="timeline-date">March. 2014 ~ Feb. 2021</span>
+        <span class="timeline-content">Ph.D. in Electrical and Electronic Engineering</span>
+        <span class="timeline-subtext">Yonsei University, Seoul</span>
+        <span class="timeline-detail">• Combined Master &amp; Ph.D. in Electrical and Electronic Engineering (Advisor: Prof. Tae Wook Kim)</span>
+    </div>
+    <div class="timeline-item">
+        <span class="timeline-date">March. 2010 ~ Feb. 2014</span>
+        <span class="timeline-content">B.S. in Electronic and Electrical Engineering</span>
+        <span class="timeline-subtext">Dankook University, Kyung-Ki</span>
+    </div>
+</div>
+
+<!-- Careers 섹션 -->
 <div class="divider"></div>
 <div class="sec-head">Careers</div>
-<p><strong>Incheon National University, Incheon, Republic of Korea</strong> (March. 2025 ~ Present)<br/>
-            - Dept. of Information and Telecommunication Engineering, Assistant Professor</p>
-<p style="margin-top:10px;"><strong>Andong National University, Andong, Kyungpook, Republic of Korea</strong> (March. 2023 ~ Feb. 2025)<br/>
-            - Dept. of the Electronic Engineering, Assistant Professor</p>
-<p style="margin-top:10px;"><strong>Samsung Electronics System LSI Business, Hwa-Seong, Republic of Korea</strong> (March. 2021 ~ Feb. 2023)<br/>
-            - Staff Engineer, Design Platform Development Team &amp; Connectivity Development Team<br/>
-               (Former) IP Development Team, Mixed-Signal Circuit Design Team<br/>
+<div class="timeline-list">
+    <div class="timeline-item">
+        <span class="timeline-date">March. 2025 ~ Present</span>
+        <span class="timeline-content">Assistant Professor</span>
+        <span class="timeline-subtext">Incheon National University, Incheon, Republic of Korea</span>
+        <span class="timeline-detail">- Dept. of Information and Telecommunication Engineering</span>
+    </div>
+    <div class="timeline-item">
+        <span class="timeline-date">March. 2023 ~ Feb. 2025</span>
+        <span class="timeline-content">Assistant Professor</span>
+        <span class="timeline-subtext">Andong National University, Andong, Kyungpook, Republic of Korea</span>
+        <span class="timeline-detail">- Dept. of the Electronic Engineering</span>
+    </div>
+    <div class="timeline-item">
+        <span class="timeline-date">March. 2021 ~ Feb. 2023</span>
+        <span class="timeline-content">Staff Engineer</span>
+        <span class="timeline-subtext">Samsung Electronics System LSI Business, Hwa-Seong, Republic of Korea</span>
+        <span class="timeline-detail">
+            - Design Platform Development Team &amp; Connectivity Development Team<br/>
+            - (Former) IP Development Team, Mixed-Signal Circuit Design Team<br/>
             ➢ Experience of the IEEE 802.15.4/4z (UWB) RF Transceiver Design<br/>
             ➢ Design of UWB Tx including transmitter building block such as power amplifier, gain amplifier, mixer, etc.<br/>
             ➢ RF Switch IC Design with wideband and high power handling.<br/>
-            ➢ Transformer, Inductor Passive Device Design using EM Simulation</p>
+            ➢ Transformer, Inductor Passive Device Design using EM Simulation
+        </span>
+    </div>
+</div>
+
 <div class="divider"></div>
 <div class="sec-head">Academic Activities</div>
-<ul style="padding-left:20px; line-height:1.9;">
+<ul style="padding-left:20px; line-height:1.9; font-size:1rem;">
 <li>Technical Reviewer, IEEE Journal of Solid-State Circuits (JSSC)</li>
 <li>Technical Reviewer, IEEE Transactions on Circuits and Systems II (TCAS-II)</li>
 <li>Technical Reviewer, IEEE Solid-State Circuits Letters (SSC-L)</li>
 <li>Technical Reviewer, IEEE Transactions on Biomedical Circuits and Systems (TBioCAS)</li>
 </ul>
+
 <div class="divider"></div>
 <div class="sec-head">Brief Bio</div>
-<p style="text-align:justify; margin-bottom:12px;">
+<p style="text-align:justify; margin-bottom:12px; font-size:1rem;">
 <strong>Geunhaeng Lee</strong> received a B.S. degree in electronic &amp; electrical engineering from Dankook University, Kyung-Ki, Republic of Korea (ROK), in 2014, and a Ph.D. degree in electrical and electronic engineering from Yonsei University, Seoul, ROK, in 2021, respectively.
             </p>
-<p style="text-align:justify; margin-bottom:12px;">
+<p style="text-align:justify; margin-bottom:12px; font-size:1rem;">
                 He was with System LSI Business, Samsung Electronics, Hwaseong, ROK from 2021 to 2023 as a Staff Engineer, where he was involved with design of UWB RF transceiver (IEEE 802.15.4z). From 2023 to 2025, he was with the dept. of Electronic Engineering, Andong National University, Kyungpook, ROK. Since March 2025, he has been with the dept. of Information and Telecommunication Engineering, Incheon National University, Incheon, ROK as an assistant professor.
             </p>
-<p style="text-align:justify; margin-bottom:12px;">
+<p style="text-align:justify; margin-bottom:12px; font-size:1rem;">
                 His research interests are RF amplifiers including PA and LNA, mixed-signal circuits, and circuit &amp; system for wireless communication. He is also interested in research on UWB transceiver systems, mm-wave ICs and digital transmitter.
             </p>
-<p style="text-align:justify; margin-bottom:12px;">
+<p style="text-align:justify; margin-bottom:12px; font-size:1rem;">
                 Dr. Lee received a bronze prize of the circuit design division at the 27th Humantech Paper Award hosted by Samsung Electronics in 2021.
             </p>
-<p style="text-align:justify;">
+<p style="text-align:justify; font-size:1rem;">
                 He also serves as a technical reviewer for <em>IEEE SSCL</em>, <em>IEEE TCAS-II</em>, <em>IEEE TBioCAS</em> and <em>IEEE JSSC</em>.
             </p>
+
+<!-- Awards 섹션 -->
 <div class="divider"></div>
 <div class="sec-head">Awards</div>
-<p><strong>[1] Bronze Prize, 27th Samsung Electronics Humantech Awards (Circuit Design Division)</strong> (Feb. 2021)<br/>
-            ➢ A 1.125 Gbps, 28 mW, 2m IR-UWB CMOS Transceiver using Extended – Multi Pulse Position Modulation</p>
+<div class="timeline-list">
+    <div class="timeline-item">
+        <span class="timeline-date">Feb. 2021</span>
+        <span class="timeline-content">Bronze Prize, 27th Samsung Electronics Humantech Paper Awards</span>
+        <span class="timeline-subtext">Circuit Design Division (hosted by Samsung Electronics)</span>
+        <span class="timeline-detail">➢ Paper: A 1.125 Gbps, 28 mW, 2m IR-UWB CMOS Transceiver using Extended – Multi Pulse Position Modulation</span>
+    </div>
+</div>
 </div>
 </div>
 
@@ -1144,7 +1242,6 @@
                 연락하는 것을 두려워 하지 마시고 편하게 면담 신청해주시기 바랍니다. 🙏
             </p>
 <div class="divider"></div>
-<!-- 리서치 오버뷰 제목 크기 상향 및 왼쪽 정렬 -->
 <div class="sec-head" style="justify-content:flex-start; text-align:left; color:var(--dodger-dark); font-size:1.65rem;">Research Overview</div>
 <img alt="Research Overview" referrerpolicy="no-referrer" src="images/Research_Research_Overview_1.png" style="width:100%; border-radius:12px;"/>
 </div>
@@ -1803,7 +1900,6 @@
 <p class="pub-venue">STATS ChipPAC Korea</p>
 <p style="color:var(--text-muted); font-size:0.95rem;">25.11.26</p>
 </div>
-<!-- 4번 세미나 및 관련 사진/설명을 하나의 카드(pub-item)로 통합 -->
 <div class="pub-item">
 <p style="text-align:justify;"><span class="pub-num">[4]</span> <span class="pub-title">삼성전자 현직자의 세미나 및 질의응답 시간 - Dr. Hyun-Gi Seok from Samsung Electronics S.LSI</span></p>
 <p class="pub-venue">2025 dept. of ITE, INU Open Lab Seminar</p>
@@ -1936,7 +2032,6 @@
 <h2 class="view-title">News</h2>
 <div class="card project-theme">
 <div class="sec-head">[2026]</div>
-<!-- 새로 추가된 김영찬 학생 수상 뉴스 (이미지 포함) -->
 <div class="pub-item news-entry">
 <div class="news-item-with-img">
 <div class="news-text-wrap">
