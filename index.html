@@ -856,6 +856,36 @@
             hyphens: auto;
         }
 
+        /* Research 탭 전용 텍스트 스타일링 */
+        .research-details {
+            margin-top: 24px;
+            text-align: left;
+        }
+        .research-details h4 {
+            font-size: 1.12rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+        .research-details p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            line-height: 1.7;
+            text-align: justify;
+        }
+        .research-details ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 6px;
+        }
+        .research-details li {
+            font-size: 0.96rem;
+            color: var(--text-main);
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+
 </style>
 </head>
 <body>
@@ -927,6 +957,9 @@
 <div class="card home-info-card" id="latest-news">
 <div class="sec-head">Latest News (2026)</div>
 <div style="display:flex; flex-direction:column; gap:16px; font-size:0.95rem; text-align:justify;">
+<div>
+<strong style="color:var(--dodger-vivid);">[2026.09]</strong> Youngchan Kim (undergraduate researcher) received the Outstanding Paper Award at the 26th RF/Analog Workshop for his paper titled “<strong>A 2-Gbps IR-UWB Transmitter Using Hybrid 4-PAM/4-PSK Modulation</strong>.” The paper presented high-order modulation techniques for high-speed, energy-efficient wireless transmission. Congrats to Youngchan on this well-deserved recognition!
+                    </div>
 <div>
 <strong style="color:var(--dodger-vivid);">[2026.08]</strong> Siwon has been selected for the 2026 Master's Student Research Grant Program (석사과정 연구장려금). The selected research project is titled “<strong>임펄스 기반 다중 배열 수신기를 이용한 고정밀 3차원 위치 추정 시스템 IC 설계</strong>”. Through this research grant, Siwon will receive a total of 12 million KRW from September 2026 to August 2027. Congrats!
                     </div>
@@ -1111,44 +1144,81 @@
                 연락하는 것을 두려워 하지 마시고 편하게 면담 신청해주시기 바랍니다. 🙏
             </p>
 <div class="divider"></div>
-<div class="sec-head" style="justify-content:center; color:var(--dodger-dark);">Research Overview</div>
+<!-- 리서치 오버뷰 제목 크기 상향 및 왼쪽 정렬 -->
+<div class="sec-head" style="justify-content:flex-start; text-align:left; color:var(--dodger-dark); font-size:1.65rem;">Research Overview</div>
 <img alt="Research Overview" referrerpolicy="no-referrer" src="images/Research_Research_Overview_1.png" style="width:100%; border-radius:12px;"/>
 </div>
+
+<!-- Theme 1 Card -->
 <div class="card">
-<div class="sec-head">1. Wireless Transceiver IC design (Communication)</div>
-<img alt="Wireless Transceiver" referrerpolicy="no-referrer" src="images/Research_Wireless_Transceiver_1.png" style="width:100%; border-radius:12px; margin-bottom:14px;"/>
-<p style="text-align:justify; margin-bottom:16px;">
-                And these days, UWB application is the most important key idea for various application. UWB technique is applied to any smart devices for communication and precise ranging simultaneously. And, also as we know the mm-wave IC is applied to any automotive radar application or 5G system.
-            </p>
-<p><strong>1-a. High-data-rate (&gt;Gbps) Fully Integrated Transceiver IC with advanced modulation technique</strong></p>
-<ul style="padding-left:24px; margin:8px 0 16px 0;">
-<li>Extended – Multi Pulse Position Modulation (E-MPPM) (IEEE ISSCC 2021 &amp; IEEE JSSC 2022)</li>
+<div class="sec-head">1. High-Data-Rate Wireless Communication &amp; Transceiver IC</div>
+<img alt="High-Data-Rate Wireless Communication &amp; Transceiver IC" referrerpolicy="no-referrer" src="images/3.png" style="width:100%; border-radius:12px;"/>
+<div class="research-details">
+<h4>Abstract</h4>
+<p>This research focuses on high-speed and energy-efficient IR-UWB wireless transceivers utilizing multi-dimensional modulation techniques. By combining Amplitude (PAM) and Phase (PSK) modulation schemes with a 65 nm CMOS process, the proposed system achieves multi-gigabit data transmission. The architecture also explores frequency-domain modulation extensions (FSK) to improve spectral efficiency for low-power wireless communication systems.</p>
+<h4>Key Highlights</h4>
+<ul>
+<li>Multi-dimensional modulation combining Hybrid 4-PAM / 4-PSK</li>
+<li>Achieves up to 2 Gbps data rates at 500 MHz PRF in 7.5–8.5 GHz band</li>
+<li>Spectrum-efficient IR-UWB transceiver extension using FSK modulation</li>
+<li>Target Applications: High-speed wireless data transfer, BCI/neural interfaces, humanoids, and distributed sensor nodes</li>
 </ul>
-<img alt="E-MPPM" referrerpolicy="no-referrer" src="images/Research_E-MPPM_1.png" style="width:100%; border-radius:12px; margin-bottom:16px;"/>
-<ul style="padding-left:24px; margin-bottom:16px;">
-<li>Amplitude – Time Shift Keying (ATSK) Transceiver IC System for Brain Computing Interfaces (IEEE TBioCaS 2024)</li>
+</div>
+</div>
+
+<!-- Theme 2 Card -->
+<div class="card">
+<div class="sec-head">2. Integrated 3D Sensing &amp; High-Precision Localization IC</div>
+<img alt="Integrated 3D Sensing &amp; High-Precision Localization IC" referrerpolicy="no-referrer" src="images/2.png" style="width:100%; border-radius:12px;"/>
+<div class="research-details">
+<h4>Abstract</h4>
+<p>This research presents an integrated IR-UWB sensing and localization IC designed for 3D spatial estimation. By combining time-delay-based Tx beamforming and multi-array Rx architectures, the system enables simultaneous azimuth, elevation angle (AoA), and distance measurements. The ultra-low-power time-domain processing structure utilizes TDoA and TDC/DTC modules to achieve high precision with low power consumption.</p>
+<h4>Key Highlights</h4>
+<ul>
+<li>Time-delay Tx beamforming and multi-array Rx for integrated 3D spatial positioning</li>
+<li>TDoA &amp; TDC-based high-precision azimuth and elevation estimation</li>
+<li>Switching-based channel sharing scheme for ultra-low-power multi-channel Rx</li>
+<li>High accuracy performance: Angle error &le; 2&deg; and time resolution &le; 10 ps</li>
+<li>Target Applications: Disaster response, NLOS human detection, autonomous mobility, and 3D positioning</li>
 </ul>
-<img alt="ATSK" referrerpolicy="no-referrer" src="images/Research_ATSK_1.png" style="width:100%; border-radius:12px; margin-bottom:16px;"/>
-<p><strong>1-b. IEEE 802.15.4z Standard Transceiver (Designed from Samsung) for Precise Ranging and Communication Simultaneous and Child Presence Detection</strong></p>
-<img alt="Samsung UWB 1" referrerpolicy="no-referrer" src="images/Research_Samsung_UWB_1_1.png" style="width:100%; border-radius:12px; margin:14px 0;"/>
-<img alt="Samsung UWB 2" referrerpolicy="no-referrer" src="images/Research_Samsung_UWB_2_1.png" style="width:100%; border-radius:12px;"/>
 </div>
-<div class="card">
-<div class="sec-head">2. Wireless Sensor (Range, Angle) IC design</div>
-<p><strong>2-a. A Time Domain Artificial Intelligence Radar System Using 33-GHz Direct Sampling for Hand Gesture Recognition</strong></p>
-<img alt="AI Radar System (33-GHz Direct Sampling)" referrerpolicy="no-referrer" src="images/Research_AI_Radar_System_(33-_1.png" style="width:100%; border-radius:12px; margin:14px 0;"/>
-<p style="margin-bottom:16px;">The convergence of AI and RF leads to the expansion of new boundaries and a paradigm shift.</p>
-<p><strong>2-b. Angle of Arrival wireless sensor for localization.</strong></p>
-<img alt="AoA Sensor" referrerpolicy="no-referrer" src="images/Research_AoA_Sensor_1.png" style="width:100%; border-radius:12px; margin:14px 0;"/>
-<p><strong>2-c. Position Tracking using the time difference of arrival (TDOA) using a receiver array</strong></p>
-<img alt="TDOA Tracking" referrerpolicy="no-referrer" src="images/Research_TDOA_Tracking_1.png" style="width:100%; border-radius:12px; margin-top:14px;"/>
 </div>
+
+<!-- Theme 3 Card -->
 <div class="card">
-<div class="sec-head">3. RF/Analog IC Design</div>
-<p><strong>3-a. Wideband LNA using Active Inductor for multi-standard</strong></p>
-<img alt="LNA" referrerpolicy="no-referrer" src="images/Research_LNA_1.png" style="width:100%; border-radius:12px; margin:14px 0;"/>
-<p><strong>3-b. High-speed Active Sampler using post-distortion for Linearization</strong></p>
-<img alt="Active Sampler" referrerpolicy="no-referrer" src="images/Research_Active_Sampler_1.png" style="width:100%; border-radius:12px; margin-top:14px;"/>
+<div class="sec-head">3. Wireless Integrated Sensing and Communication (ISAC) System</div>
+<img alt="Wireless Integrated Sensing and Communication (ISAC) System" referrerpolicy="no-referrer" src="images/4.png" style="width:100%; border-radius:12px;"/>
+<div class="research-details">
+<h4>Abstract</h4>
+<p>This research proposes a sub-mW ultra-low-power wireless ISAC transceiver, enabling up to 100 Mbps data rates and sub-cm ranging precision. Utilizing S-OOK modulation and Two-Way Ranging (TWR), the system features a digital edge-combining Tx (&lt;0.5 mW) and a non-coherent self-mixing Rx with a Two-Step Vernier TDC (&lt;3 ps resolution) in the 6.5–8.0 GHz band. The integrated single-module architecture also supports seamless switching to standalone radar mode for uncooperative targets.</p>
+<h4>Key Highlights</h4>
+<ul>
+<li>Sub-mW ISAC Performance: Delivers 100 Mbps communication and sub-cm ranging at under 1 mW total power</li>
+<li>Sub-Centimeter Ranging: Achieves &lt;3 ps time resolution via a Two-Step Vernier TDC for high-precision TWR</li>
+<li>Low-Power Digital Tx: Employs edge-combining logic and power-gating switches to keep Tx power under 0.5 mW at 6.5–8.0 GHz</li>
+<li>High-Sensitivity Rx Chain: Combines a non-coherent self-mixing detector with processing gain to reach an Rx sensitivity of -80 dBm</li>
+<li>Dual-Mode Flexibility: Features seamless switching between TWR communication and standalone radar mode on a single module</li>
+</ul>
+</div>
+</div>
+
+<!-- Theme 4 Card -->
+<div class="card">
+<div class="sec-head">4. Compound Semiconductor RF IC &amp; High-Reliability Systems</div>
+<img alt="Compound Semiconductor RF IC &amp; High-Reliability Systems" referrerpolicy="no-referrer" src="images/5.png" style="width:100%; border-radius:12px;"/>
+<div class="research-details">
+<h4>Abstract</h4>
+<p>This research focuses on GaN and compound semiconductor RF IC designs engineered for extreme operational environments. By employing Modified Gain Expansion Transistor (MGTR) techniques and radiation-aware bias compensation circuits, the proposed designs enhance linearity and reliability in power amplifiers and LNAs. These systems leverage wide bandgap characteristics for high-power, high-efficiency RF front-end modules.</p>
+<h4>Key Highlights</h4>
+<ul>
+<li>AI-assisted predistortion for power amplifier linearization and parameter optimization</li>
+<li>On-chip broadside- and edge-coupled baluns for differential RF outputs</li>
+<li>Adaptive compensation architecture for PVT, memory, and aging effects</li>
+<li>MGTR-based linearity enhancement for GaN power amplifiers (PA) and low-noise amplifiers (LNA)</li>
+<li>Radiation-aware device design and LUT-based adaptive bias compensation</li>
+<li>Target Applications: Defense, space, satellite communications, and high-power RF front-ends</li>
+</ul>
+</div>
 </div>
 </div>
 
@@ -1866,6 +1936,18 @@
 <h2 class="view-title">News</h2>
 <div class="card project-theme">
 <div class="sec-head">[2026]</div>
+<!-- 새로 추가된 김영찬 학생 수상 뉴스 (이미지 포함) -->
+<div class="pub-item news-entry">
+<div class="news-item-with-img">
+<div class="news-text-wrap">
+<p style="text-align:justify;"><span class="pub-num">[2026.09]</span> Youngchan Kim (undergraduate researcher) received the Outstanding Paper Award at the 26th RF/Analog Workshop for his paper titled “<strong>A 2-Gbps IR-UWB Transmitter Using Hybrid 4-PAM/4-PSK Modulation</strong>.” The paper presented high-order modulation techniques for high-speed, energy-efficient wireless transmission. Congrats to Youngchan on this well-deserved recognition!</p>
+</div>
+<div class="news-card-img-wrap" onclick="openImageModal(this.querySelector('img').src, 'RF/Analog 워크샵 우수논문상 수상')">
+<img alt="RF/Analog Workshop Outstanding Paper Award" class="news-card-img" referrerpolicy="no-referrer" src="images/news_2026.09_Youngchan.png"/>
+<span class="zoom-badge">🔍 클릭 확대</span>
+</div>
+</div>
+</div>
 <div class="pub-item news-entry">
 <div class="news-item-with-img">
 <div class="news-text-wrap">
