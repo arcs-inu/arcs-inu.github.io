@@ -188,11 +188,11 @@
 
         /* 섹션 헤더 */
         .sec-head { 
-            font-size: 1.45rem; font-weight: 800; color: var(--primary); margin-bottom: 22px; 
+            font-size: 1.35rem; font-weight: 800; color: var(--primary); margin-bottom: 22px; 
             display: flex; align-items: center; gap: 10px; 
         }
         .sec-head::before { 
-            content: ""; width: 5px; height: 22px; background: var(--dodger-blue); border-radius: 3px; 
+            content: ""; width: 5px; height: 20px; background: var(--dodger-blue); border-radius: 3px; 
         }
 
         /* 프로필 스타일 */
@@ -201,64 +201,6 @@
         .profile-info h3 { font-size: 1.45rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
         .profile-info p { margin-bottom: 6px; font-size: 1rem; }
         .profile-links a { color: var(--dodger-vivid); font-weight: 700; text-decoration: underline; margin-right: 8px; }
-
-        /* Education, Careers & Awards 타임라인 스타일 (왼쪽 바/꼭지 제거 버전) */
-        .timeline-list {
-            position: relative;
-            padding-left: 0;
-            margin-bottom: 8px;
-        }
-        .timeline-item {
-            position: relative;
-            margin-bottom: 22px;
-            padding: 22px 26px;
-            background: #f8fafc;
-            border: 1px solid var(--border-card);
-            border-radius: 12px;
-            transition: all 0.25s ease;
-        }
-        .timeline-item:last-child { margin-bottom: 0; }
-        .timeline-item:hover {
-            background: #ffffff;
-            border-color: var(--dodger-blue);
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px);
-        }
-
-        /* 폰트 및 여백 상향 */
-        .timeline-date {
-            display: inline-block;
-            font-size: 0.92rem;
-            font-weight: 700;
-            color: var(--dodger-dark);
-            background: var(--dodger-bg);
-            padding: 4px 14px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-        }
-        .timeline-content {
-            font-size: 1.15rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1.55;
-            display: block;
-        }
-        .timeline-subtext {
-            display: block;
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-top: 6px;
-        }
-        .timeline-detail {
-            display: block;
-            font-size: 0.95rem;
-            color: #475569;
-            margin-top: 8px;
-            padding-left: 12px;
-            border-left: 3px solid #cbd5e1;
-            line-height: 1.75;
-        }
 
         /* CHIP GALLERY 카드 */
         .chip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
@@ -335,7 +277,7 @@
         details.teaching-box .content { padding: 20px 24px; }
         details.teaching-box ul { padding-left: 20px; line-height: 2; list-style-type: square; }
 
-        /* LAB GALLERY 카드 */
+        /* LAB GALLERY 카드 - 글자 문단 높이에 맞춰 이미지 축소 및 여백 정밀 조절 */
         .gallery-item {
             display: flex; gap: 24px; align-items: center; margin-bottom: 24px; background: #ffffff; 
             border: 1.5px solid var(--border); border-radius: 16px; padding: 20px 24px; box-shadow: var(--shadow);
@@ -1054,7 +996,7 @@
 </div>
 </div>
 
-<!-- 2. PI VIEW (Education, Careers & Awards 깔끔한 카드 스타일) -->
+<!-- 2. PI VIEW -->
 <div class="page-view" id="view-pi">
 <h2 class="view-title">Principal Investigator</h2>
 <div class="card">
@@ -1072,93 +1014,53 @@
                     Incheon National University</p>
 </div>
 </div>
-
-<!-- Education 섹션 -->
 <div class="divider"></div>
 <div class="sec-head">Education</div>
-<div class="timeline-list">
-    <div class="timeline-item">
-        <span class="timeline-date">March. 2014 ~ Feb. 2021</span>
-        <span class="timeline-content">Ph.D. in Electrical and Electronic Engineering</span>
-        <span class="timeline-subtext">Yonsei University, Seoul</span>
-        <span class="timeline-detail">• Combined Master &amp; Ph.D. in Electrical and Electronic Engineering (Advisor: Prof. Tae Wook Kim)</span>
-    </div>
-    <div class="timeline-item">
-        <span class="timeline-date">March. 2010 ~ Feb. 2014</span>
-        <span class="timeline-content">B.S. in Electronic and Electrical Engineering</span>
-        <span class="timeline-subtext">Dankook University, Kyung-Ki</span>
-    </div>
-</div>
-
-<!-- Careers 섹션 -->
+<p><strong>Ph.D. in Electrical and Electronic Engineering, Yonsei University, Seoul</strong> (March. 2014 ~ Feb. 2021)<br/>
+            • Combined Master &amp; Ph.D. in Electrical and Electronic Engineering (Advisor: Prof. Tae Wook Kim)</p>
+<p style="margin-top:10px;"><strong>B.S. in Electronic and Electrical Engineering, Dankook University, Kyung-Ki</strong> (March. 2010 ~ Feb. 2014)</p>
 <div class="divider"></div>
 <div class="sec-head">Careers</div>
-<div class="timeline-list">
-    <div class="timeline-item">
-        <span class="timeline-date">March. 2025 ~ Present</span>
-        <span class="timeline-content">Assistant Professor</span>
-        <span class="timeline-subtext">Incheon National University, Incheon, Republic of Korea</span>
-        <span class="timeline-detail">- Dept. of Information and Telecommunication Engineering</span>
-    </div>
-    <div class="timeline-item">
-        <span class="timeline-date">March. 2023 ~ Feb. 2025</span>
-        <span class="timeline-content">Assistant Professor</span>
-        <span class="timeline-subtext">Andong National University, Andong, Kyungpook, Republic of Korea</span>
-        <span class="timeline-detail">- Dept. of the Electronic Engineering</span>
-    </div>
-    <div class="timeline-item">
-        <span class="timeline-date">March. 2021 ~ Feb. 2023</span>
-        <span class="timeline-content">Staff Engineer</span>
-        <span class="timeline-subtext">Samsung Electronics System LSI Business, Hwa-Seong, Republic of Korea</span>
-        <span class="timeline-detail">
-            - Design Platform Development Team &amp; Connectivity Development Team<br/>
-            - (Former) IP Development Team, Mixed-Signal Circuit Design Team<br/>
+<p><strong>Incheon National University, Incheon, Republic of Korea</strong> (March. 2025 ~ Present)<br/>
+            - Dept. of Information and Telecommunication Engineering, Assistant Professor</p>
+<p style="margin-top:10px;"><strong>Andong National University, Andong, Kyungpook, Republic of Korea</strong> (March. 2023 ~ Feb. 2025)<br/>
+            - Dept. of the Electronic Engineering, Assistant Professor</p>
+<p style="margin-top:10px;"><strong>Samsung Electronics System LSI Business, Hwa-Seong, Republic of Korea</strong> (March. 2021 ~ Feb. 2023)<br/>
+            - Staff Engineer, Design Platform Development Team &amp; Connectivity Development Team<br/>
+               (Former) IP Development Team, Mixed-Signal Circuit Design Team<br/>
             ➢ Experience of the IEEE 802.15.4/4z (UWB) RF Transceiver Design<br/>
             ➢ Design of UWB Tx including transmitter building block such as power amplifier, gain amplifier, mixer, etc.<br/>
             ➢ RF Switch IC Design with wideband and high power handling.<br/>
-            ➢ Transformer, Inductor Passive Device Design using EM Simulation
-        </span>
-    </div>
-</div>
-
+            ➢ Transformer, Inductor Passive Device Design using EM Simulation</p>
 <div class="divider"></div>
 <div class="sec-head">Academic Activities</div>
-<ul style="padding-left:20px; line-height:1.9; font-size:1rem;">
+<ul style="padding-left:20px; line-height:1.9;">
 <li>Technical Reviewer, IEEE Journal of Solid-State Circuits (JSSC)</li>
 <li>Technical Reviewer, IEEE Transactions on Circuits and Systems II (TCAS-II)</li>
 <li>Technical Reviewer, IEEE Solid-State Circuits Letters (SSC-L)</li>
 <li>Technical Reviewer, IEEE Transactions on Biomedical Circuits and Systems (TBioCAS)</li>
 </ul>
-
 <div class="divider"></div>
 <div class="sec-head">Brief Bio</div>
-<p style="text-align:justify; margin-bottom:12px; font-size:1rem;">
+<p style="text-align:justify; margin-bottom:12px;">
 <strong>Geunhaeng Lee</strong> received a B.S. degree in electronic &amp; electrical engineering from Dankook University, Kyung-Ki, Republic of Korea (ROK), in 2014, and a Ph.D. degree in electrical and electronic engineering from Yonsei University, Seoul, ROK, in 2021, respectively.
             </p>
-<p style="text-align:justify; margin-bottom:12px; font-size:1rem;">
+<p style="text-align:justify; margin-bottom:12px;">
                 He was with System LSI Business, Samsung Electronics, Hwaseong, ROK from 2021 to 2023 as a Staff Engineer, where he was involved with design of UWB RF transceiver (IEEE 802.15.4z). From 2023 to 2025, he was with the dept. of Electronic Engineering, Andong National University, Kyungpook, ROK. Since March 2025, he has been with the dept. of Information and Telecommunication Engineering, Incheon National University, Incheon, ROK as an assistant professor.
             </p>
-<p style="text-align:justify; margin-bottom:12px; font-size:1rem;">
+<p style="text-align:justify; margin-bottom:12px;">
                 His research interests are RF amplifiers including PA and LNA, mixed-signal circuits, and circuit &amp; system for wireless communication. He is also interested in research on UWB transceiver systems, mm-wave ICs and digital transmitter.
             </p>
-<p style="text-align:justify; margin-bottom:12px; font-size:1rem;">
+<p style="text-align:justify; margin-bottom:12px;">
                 Dr. Lee received a bronze prize of the circuit design division at the 27th Humantech Paper Award hosted by Samsung Electronics in 2021.
             </p>
-<p style="text-align:justify; font-size:1rem;">
+<p style="text-align:justify;">
                 He also serves as a technical reviewer for <em>IEEE SSCL</em>, <em>IEEE TCAS-II</em>, <em>IEEE TBioCAS</em> and <em>IEEE JSSC</em>.
             </p>
-
-<!-- Awards 섹션 -->
 <div class="divider"></div>
 <div class="sec-head">Awards</div>
-<div class="timeline-list">
-    <div class="timeline-item">
-        <span class="timeline-date">Feb. 2021</span>
-        <span class="timeline-content">Bronze Prize, 27th Samsung Electronics Humantech Paper Awards</span>
-        <span class="timeline-subtext">Circuit Design Division (hosted by Samsung Electronics)</span>
-        <span class="timeline-detail">➢ Paper: A 1.125 Gbps, 28 mW, 2m IR-UWB CMOS Transceiver using Extended – Multi Pulse Position Modulation</span>
-    </div>
-</div>
+<p><strong>[1] Bronze Prize, 27th Samsung Electronics Humantech Awards (Circuit Design Division)</strong> (Feb. 2021)<br/>
+            ➢ A 1.125 Gbps, 28 mW, 2m IR-UWB CMOS Transceiver using Extended – Multi Pulse Position Modulation</p>
 </div>
 </div>
 
@@ -1242,6 +1144,7 @@
                 연락하는 것을 두려워 하지 마시고 편하게 면담 신청해주시기 바랍니다. 🙏
             </p>
 <div class="divider"></div>
+<!-- 리서치 오버뷰 제목 크기 상향 및 왼쪽 정렬 -->
 <div class="sec-head" style="justify-content:flex-start; text-align:left; color:var(--dodger-dark); font-size:1.65rem;">Research Overview</div>
 <img alt="Research Overview" referrerpolicy="no-referrer" src="images/Research_Research_Overview_1.png" style="width:100%; border-radius:12px;"/>
 </div>
@@ -1682,12 +1585,12 @@
 <div class="axis-pub-header">
 <h2 class="view-title" style="text-align:left; margin-bottom:12px;">Patents</h2>
 <div class="axis-pub-meta">
-<strong>18</strong> registered &amp; filed patents · <span style="color:#000000; font-weight:700;">Domestic &amp; International</span>
+<strong>15</strong> registered &amp; filed patents · <span style="color:#000000; font-weight:700;">Domestic &amp; International</span>
 </div>
 <div class="axis-filter-bar">
-<button class="axis-filter-btn active">All 18</button>
+<button class="axis-filter-btn active">All 15</button>
 <button class="axis-filter-btn">International 5</button>
-<button class="axis-filter-btn">Domestic 13</button>
+<button class="axis-filter-btn">Domestic 10</button>
 </div>
 </div>
 <!-- International Patents -->
@@ -1747,39 +1650,12 @@
 <div class="axis-cards-col">
 <div class="axis-item-card">
 <div class="axis-item-top">
-<span class="axis-item-num">[13]</span>
-<span class="axis-tag">KR FILED</span>
-<span class="axis-item-authors"><u><b>이근행</b></u>, 이상우</span>
-</div>
-<div class="axis-item-title">방사선 환경에서 트랜지스터의 특성 변화를 보정하기 위한 장치 및 방법</div>
-<div class="axis-item-venue">Korea – Filed, Submitted, 10-2026-0182454</div>
-</div>
-<div class="axis-item-card">
-<div class="axis-item-top">
-<span class="axis-item-num">[12]</span>
-<span class="axis-tag">KR FILED</span>
-<span class="axis-item-authors"><u><b>이근행</b></u>, 이시원</span>
-</div>
-<div class="axis-item-title">임펄스 기반 다중 안테나 배열을 이용한 3차원 위치 추정 시스템 및 방법</div>
-<div class="axis-item-venue">Korea – Filed, Submitted, 10-2026-0182453</div>
-</div>
-<div class="axis-item-card">
-<div class="axis-item-top">
-<span class="axis-item-num">[11]</span>
-<span class="axis-tag">KR FILED</span>
-<span class="axis-item-authors"><u><b>이근행</b></u></span>
-</div>
-<div class="axis-item-title">펄스 진폭 변조 회로, 이를 포함하는 송신 장치 및 신호 송신 방법</div>
-<div class="axis-item-venue">Korea – Filed, Submitted, 10-2026-0182452</div>
-</div>
-<div class="axis-item-card">
-<div class="axis-item-top">
 <span class="axis-item-num">[10]</span>
 <span class="axis-tag">KR FILED</span>
 <span class="axis-item-authors"><u><b>이근행</b></u></span>
 </div>
 <div class="axis-item-title">도달 각도 차이에 기반한 평면 측위 시스템</div>
-<div class="axis-item-venue">Korea – Filed, Submitted, 10-2024-0178299</div>
+<div class="axis-item-venue">Korea – Filed,Submitted, 10-2024-0178299</div>
 </div>
 <div class="axis-item-card">
 <div class="axis-item-top">
@@ -1865,6 +1741,7 @@
 </div>
 </div>
 </div>
+
 <!-- 8. PROJECT VIEW -->
 <div class="page-view" id="view-project">
 <div class="axis-pub-header">
@@ -1912,52 +1789,83 @@
 
 <!-- 9. INVITED TALKS VIEW -->
 <div class="page-view" id="view-invited-talks">
-<h2 class="view-title">Invited Talks and Seminar</h2>
-<div class="card project-theme">
-<div class="sec-head">2026</div>
-<div class="pub-item">
-<p style="text-align:justify;"><span class="pub-num">[6]</span> <span class="pub-title">New connectivity solution – Ultra wideband System Design (Communication to geometrical Sensing in RFIC) - Prof. Geunhaeng Lee</span></p>
-<p class="pub-venue">LIG Nex1</p>
-<p style="color:var(--text-muted); font-size:0.95rem;">26.05.14</p>
-</div>
-<div class="sec-head" style="margin-top:34px;">2025</div>
-<div class="pub-item">
-<p style="text-align:justify;"><span class="pub-num">[5]</span> <span class="pub-title">Basic Electronic Theory Seminar for Junior Freshman Engineer - Prof. Geunhaeng Lee</span></p>
-<p class="pub-venue">STATS ChipPAC Korea</p>
-<p style="color:var(--text-muted); font-size:0.95rem;">25.11.26</p>
-</div>
-<div class="pub-item">
-<p style="text-align:justify;"><span class="pub-num">[4]</span> <span class="pub-title">삼성전자 현직자의 세미나 및 질의응답 시간 - Dr. Hyun-Gi Seok from Samsung Electronics S.LSI</span></p>
-<p class="pub-venue">2025 dept. of ITE, INU Open Lab Seminar</p>
-<p style="color:var(--text-muted); font-size:0.95rem;">25.09.30</p>
-<div style="display:flex; gap:24px; align-items:center; margin-top:20px; background:#f8fafc; padding:20px; border-radius:14px; border:1px solid var(--border);">
-<img alt="Open Lab Seminar" referrerpolicy="no-referrer" src="images/New_connectivity_sol_Open_Lab_Seminar_1.jpg" style="width:40%; max-width:320px; border-radius:10px;"/>
-<div>
-<p style="font-size:0.98rem; line-height:1.8;">
-                        삼성전자 석현기 박사님께서 인천대학교 정보통신공학과 OPEN Lab. 행사에 참석해주셔서 학생들에게 귀감이 되는 얘기와 많은 조언들을 해주셨습니다.<br/>
+    <h2 class="view-title">Invited Talks and Seminar</h2>
+    <div class="card project-theme">
+        <div class="sec-head">2026</div>
+        
+        <!-- [7] LIG D&A 세미나 (2분할 사진 + 랩갤러리와 동일한 앨범 모달) -->
+        <div class="pub-item">
+            <p style="text-align:justify;"><span class="pub-num">[7]</span> <span class="pub-title">LIG D&amp;A 현직자의 세미나- Principal Engineer Hyungjin Jung from LIG D&amp;A</span></p>
+            <p class="pub-venue">2026 dept. of ITE, INU ARCS Lab. Open Lab Seminar</p>
+            <p style="color:var(--text-muted); font-size:0.95rem;">26.10.01</p>
+            <div style="display:flex; gap:24px; align-items:center; margin-top:20px; background:#f8fafc; padding:20px; border-radius:14px; border:1px solid var(--border);">
+                <!-- 2분할 사진 영역 (클릭 시 랩갤러리와 동일한 앨범 모달 호출) -->
+                <div style="width:40%; max-width:320px; display:grid; grid-template-columns: repeat(2, 1fr); gap:8px; flex-shrink:0;">
+                    <div class="news-card-img-wrap" onclick="openAlbum(['images/Invited Talk_20261001_1.jpg', 'images/Invited Talk_20261001_2.jpg'], 0, 'LIG D&amp;A 세미나')" style="width:100%; aspect-ratio:4/3; margin:0; cursor:pointer;">
+                        <img src="images/Invited Talk_20261001_1.jpg" alt="LIG D&amp;A 세미나 1" style="width:100%; height:100%; object-fit:cover; border-radius:8px; display:block;">
+                        <span class="zoom-badge">🔍 1/2</span>
+                    </div>
+                    <div class="news-card-img-wrap" onclick="openAlbum(['images/Invited Talk_20261001_1.jpg', 'images/Invited Talk_20261001_2.jpg'], 1, 'LIG D&amp;A 세미나')" style="width:100%; aspect-ratio:4/3; margin:0; cursor:pointer;">
+                        <img src="images/Invited Talk_20261001_2.jpg" alt="LIG D&amp;A 세미나 2" style="width:100%; height:100%; object-fit:cover; border-radius:8px; display:block;">
+                        <span class="zoom-badge">🔍 2/2</span>
+                    </div>
+                </div>
+                <!-- 설명 텍스트 영역 -->
+                <div style="flex:1;">
+                    <p style="font-size:0.98rem; line-height:1.8; text-align:justify;">
+                        LIG Defence &amp; Aerospace (LIG D&amp;A, 구 LIG 넥스원) 정형진 수석님께서 본교 ARCS Lab. 오픈랩 행사에 참석하셔서 학생들에게 회사 소개 및 방산 산업에 대한 전반적인 발전 방향과 실무에서 필요한 역량 등에 대해 상세히 소개해주시는 시간을 가졌습니다. 정형진 수석님께서 귀한 시간 내주셔서 올해도 좋은 Open Lab. 행사가 되었던 것 같습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pub-item">
+            <p style="text-align:justify;"><span class="pub-num">[6]</span> <span class="pub-title">New connectivity solution – Ultra wideband System Design (Communication to geometrical Sensing in RFIC) - Prof. Geunhaeng Lee</span></p>
+            <p class="pub-venue">LIG Nex1</p>
+            <p style="color:var(--text-muted); font-size:0.95rem;">26.05.14</p>
+        </div>
+
+        <div class="sec-head" style="margin-top:34px;">2025</div>
+        <div class="pub-item">
+            <p style="text-align:justify;"><span class="pub-num">[5]</span> <span class="pub-title">Basic Electronic Theory Seminar for Junior Freshman Engineer - Prof. Geunhaeng Lee</span></p>
+            <p class="pub-venue">STATS ChipPAC Korea</p>
+            <p style="color:var(--text-muted); font-size:0.95rem;">25.11.26</p>
+        </div>
+
+        <div class="pub-item">
+            <p style="text-align:justify;"><span class="pub-num">[4]</span> <span class="pub-title">삼성전자 현직자의 세미나 및 질의응답 시간 - Dr. Hyun-Gi Seok from Samsung Electronics S.LSI</span></p>
+            <p class="pub-venue">2025 dept. of ITE, INU Open Lab Seminar</p>
+            <p style="color:var(--text-muted); font-size:0.95rem;">25.09.30</p>
+            <div style="display:flex; gap:24px; align-items:center; margin-top:20px; background:#f8fafc; padding:20px; border-radius:14px; border:1px solid var(--border);">
+                <img src="images/New_connectivity_sol_Open_Lab_Seminar_1.jpg" alt="Open Lab Seminar" style="width:40%; max-width:320px; border-radius:10px;" referrerpolicy="no-referrer">
+                <div>
+                    <p style="font-size:0.98rem; line-height:1.8;">
+                        삼성전자 석현기 박사님께서 인천대학교 정보통신공학과 OPEN Lab. 행사에 참석해주셔서 학생들에게 귀감이 되는 얘기와 많은 조언들을 해주셨습니다.<br>
                         석현기 박사님께서 참석해주신 덕분에 더욱 더 뜻깊은 OPEN Lab. 행사가 될 수 있었던 것 같습니다.
                     </p>
-</div>
-</div>
-</div>
-<div class="sec-head" style="margin-top:34px;">2024</div>
-<div class="pub-item">
-<p style="text-align:justify;"><span class="pub-num">[3]</span> <span class="pub-title">UWB 송수신기 개발 동향</span> <a class="pub-link" href="https://www.theieie.org/events/?part=03&amp;c_id=869" target="_blank">[Link]</a> - Prof. Geunhaeng Lee</p>
-<p class="pub-venue">24th RF/Analog IC Workshop (제 24회 RF/아날로그 회로 워크샵)</p>
-<p style="color:var(--text-muted); font-size:0.95rem;">24.09.27</p>
-</div>
-<div class="pub-item">
-<p style="text-align:justify;"><span class="pub-num">[2]</span> <span class="pub-title">Next Connectivity Solution: UWB 기술 소개 및 송수신기 연구 개발 동향</span> <a class="pub-link" href="https://2024summer.kiees.or.kr/html/user/core/view/subpage/190/workshop/inc/data/workshop_2024_summer/2024_summer_workshop_06_240717.pdf" target="_blank">[Link]</a> - Prof. Geunhaeng Lee</p>
-<p class="pub-venue">2024 KIEES Summer Conference (2024 전자파학회 하계종합학술대회)</p>
-<p style="color:var(--text-muted); font-size:0.95rem;">24.08.21</p>
-</div>
-<div class="sec-head" style="margin-top:34px;">2023</div>
-<div class="pub-item">
-<p style="text-align:justify;"><span class="pub-num">[1]</span> <span class="pub-title">최신 반도체 산업 동향-삼성전자 전현직자가 들려주는 이야기</span> <a class="pub-link" href="https://sct.pusan.ac.kr/sct/69192/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc2N0JTJGMTc0MDQlMkYxMjEzOTE1JTJGYXJ0Y2xWaWV3LmRvJTNG" target="_blank">[Link]</a> - Prof. Geunhaeng Lee</p>
-<p class="pub-venue">Pusan National University, Semiconductor Engineering Track</p>
-<p style="color:var(--text-muted); font-size:0.95rem;">23.08.28</p>
-</div>
-</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sec-head" style="margin-top:34px;">2024</div>
+        <div class="pub-item">
+            <p style="text-align:justify;"><span class="pub-num">[3]</span> <span class="pub-title">UWB 송수신기 개발 동향</span> <a href="https://www.theieie.org/events/?part=03&amp;c_id=869" target="_blank" class="pub-link">[Link]</a> - Prof. Geunhaeng Lee</p>
+            <p class="pub-venue">24th RF/Analog IC Workshop (제 24회 RF/아날로그 회로 워크샵)</p>
+            <p style="color:var(--text-muted); font-size:0.95rem;">24.09.27</p>
+        </div>
+        <div class="pub-item">
+            <p style="text-align:justify;"><span class="pub-num">[2]</span> <span class="pub-title">Next Connectivity Solution: UWB 기술 소개 및 송수신기 연구 개발 동향</span> <a href="https://2024summer.kiees.or.kr/html/user/core/view/subpage/190/workshop/inc/data/workshop_2024_summer/2024_summer_workshop_06_240717.pdf" target="_blank" class="pub-link">[Link]</a> - Prof. Geunhaeng Lee</p>
+            <p class="pub-venue">2024 KIEES Summer Conference (2024 전자파학회 하계종합학술대회)</p>
+            <p style="color:var(--text-muted); font-size:0.95rem;">24.08.21</p>
+        </div>
+
+        <div class="sec-head" style="margin-top:34px;">2023</div>
+        <div class="pub-item">
+            <p style="text-align:justify;"><span class="pub-num">[1]</span> <span class="pub-title">최신 반도체 산업 동향-삼성전자 전현직자가 들려주는 이야기</span> <a href="https://sct.pusan.ac.kr/sct/69192/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGc2N0JTJGMTc0MDQlMkYxMjEzOTE1JTJGYXJ0Y2xWaWV3LmRvJTNG" target="_blank" class="pub-link">[Link]</a> - Prof. Geunhaeng Lee</p>
+            <p class="pub-venue">Pusan National University, Semiconductor Engineering Track</p>
+            <p style="color:var(--text-muted); font-size:0.95rem;">23.08.28</p>
+        </div>
+    </div>
 </div>
 
 <!-- 10. TEACHING VIEW -->
@@ -2058,6 +1966,7 @@
 <h2 class="view-title">News</h2>
 <div class="card project-theme">
 <div class="sec-head">[2026]</div>
+<!-- 새로 추가된 김영찬 학생 수상 뉴스 (이미지 포함) -->
 <div class="pub-item news-entry">
 <div class="news-item-with-img">
 <div class="news-text-wrap">
@@ -2210,12 +2119,9 @@
 
 <!-- 통합 페이지 스크립트 -->
 <script>
-        const galleryAlbumImages = [
-            'images/Album_202609_Conference_1.jpg',
-            'images/Album_202609_Conference_2.jpg',
-            'images/Album_202609_Conference_3.jpg',
-            'images/Album_202609_Conference_4.jpg'
-        ];
+        // 범용 앨범 관리를 위한 상태 변수
+        let activeAlbumList = [];
+        let activeAlbumTitle = '';
         let galleryAlbumIndex = 0;
         let galleryAlbumDragging = false;
         let galleryAlbumMoved = false;
@@ -2225,27 +2131,44 @@
         let galleryAlbumY = 0;
         let galleryAlbumScale = 1;
 
+        const defaultLabGalleryImages = [
+            'images/Album_202609_Conference_1.jpg',
+            'images/Album_202609_Conference_2.jpg',
+            'images/Album_202609_Conference_3.jpg',
+            'images/Album_202609_Conference_4.jpg'
+        ];
+
         function updateGalleryAlbumTransform() {
             const target = document.getElementById('galleryLightboxTarget');
             if (!target) return;
             target.style.transform = 'translate(' + galleryAlbumX + 'px, ' + galleryAlbumY + 'px) scale(' + galleryAlbumScale + ')';
         }
 
-        function openGalleryAlbum(index) {
+        // 랩갤러리 및 기타 앨범 공용 열기 함수
+        function openAlbum(imgList, index, title) {
             const overlay = document.getElementById('galleryLightbox');
             const target = document.getElementById('galleryLightboxTarget');
             if (!overlay || !target) return;
 
+            activeAlbumList = imgList || defaultLabGalleryImages;
+            activeAlbumTitle = title || 'Lab Gallery';
             galleryAlbumIndex = index;
             galleryAlbumX = 0;
             galleryAlbumY = 0;
             galleryAlbumScale = 1;
-            target.src = galleryAlbumImages[galleryAlbumIndex];
-            target.alt = '2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju - Photo ' + (galleryAlbumIndex + 1);
+            
+            target.src = activeAlbumList[galleryAlbumIndex];
+            target.alt = activeAlbumTitle + ' - Photo ' + (galleryAlbumIndex + 1);
             target.classList.remove('dragging');
+            
             updateGalleryAlbumTransform();
             overlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+        }
+
+        // 기존 랩갤러리 4분할 호환용 함수
+        function openGalleryAlbum(index) {
+            openAlbum(defaultLabGalleryImages, index, '2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju');
         }
 
         function closeGalleryAlbum(event) {
@@ -2262,14 +2185,17 @@
 
         function changeGalleryAlbum(direction, event) {
             if (event) event.stopPropagation();
-            galleryAlbumIndex = (galleryAlbumIndex + direction + galleryAlbumImages.length) % galleryAlbumImages.length;
+            if (!activeAlbumList || activeAlbumList.length === 0) return;
+
+            galleryAlbumIndex = (galleryAlbumIndex + direction + activeAlbumList.length) % activeAlbumList.length;
             const target = document.getElementById('galleryLightboxTarget');
             if (!target) return;
+            
             galleryAlbumX = 0;
             galleryAlbumY = 0;
             galleryAlbumScale = 1;
-            target.src = galleryAlbumImages[galleryAlbumIndex];
-            target.alt = '2026 Fall Semester Lab Kick-off Party & RF/Analog Workshop in Jeju - Photo ' + (galleryAlbumIndex + 1);
+            target.src = activeAlbumList[galleryAlbumIndex];
+            target.alt = activeAlbumTitle + ' - Photo ' + (galleryAlbumIndex + 1);
             updateGalleryAlbumTransform();
         }
 
