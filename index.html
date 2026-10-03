@@ -1908,31 +1908,32 @@
 </div>
 </div>
 </div>
+
 <!-- 9. INVITED TALKS VIEW -->
 <div class="page-view" id="view-invited-talks">
     <h2 class="view-title">Invited Talks and Seminar</h2>
     <div class="card project-theme">
         <div class="sec-head">2026</div>
         
-        <!-- [7] LIG D&A 세미나 (2분할 사진 모바일 대응 완벽 수정) -->
+        <!-- [7] LIG D&A 세미나 (삼성전자 크기에 맞춘 2분할 좌측 레이아웃) -->
         <div class="pub-item">
             <p style="text-align:justify;"><span class="pub-num">[7]</span> <span class="pub-title">LIG D&amp;A 현직자의 세미나- Principal Engineer Hyungjin Jung from LIG D&amp;A</span></p>
             <p class="pub-venue">2026 dept. of ITE, INU ARCS Lab. Open Lab Seminar</p>
             <p style="color:var(--text-muted); font-size:0.95rem;">26.10.01</p>
-            <div style="display:flex; flex-direction:column; gap:16px; margin-top:20px; background:#f8fafc; padding:18px; border-radius:14px; border:1px solid var(--border);">
-                <!-- 2분할 사진 영역 (전체 폭 100% 사용 & 2열 배치) -->
-                <div style="width:100%; display:grid; grid-template-columns: repeat(2, 1fr); gap:10px; flex-shrink:0;">
+            <div style="display:flex; gap:24px; align-items:center; margin-top:20px; background:#f8fafc; padding:20px; border-radius:14px; border:1px solid var(--border);">
+                <!-- 좌측 2분할 이미지 영역 (삼성전자 이미지 크기와 동일) -->
+                <div style="width:36%; max-width:320px; flex-shrink:0; display:grid; grid-template-columns: repeat(2, 1fr); gap:6px;">
                     <div class="news-card-img-wrap" onclick="openAlbum(['images/Invited Talk_20261001_1.jpg', 'images/Invited Talk_20261001_2.jpg'], 0, 'LIG D&amp;A 세미나')" style="width:100%; aspect-ratio:4/3; margin:0; cursor:pointer;">
-                        <img src="images/Invited Talk_20261001_1.jpg" alt="LIG D&amp;A 세미나 1" style="width:100%; height:100%; object-fit:cover; border-radius:8px; display:block;">
+                        <img src="images/Invited Talk_20261001_1.jpg" alt="LIG D&amp;A 세미나 1" style="width:100%; height:100%; object-fit:cover; border-radius:6px; display:block;">
                         <span class="zoom-badge">🔍 1/2</span>
                     </div>
                     <div class="news-card-img-wrap" onclick="openAlbum(['images/Invited Talk_20261001_1.jpg', 'images/Invited Talk_20261001_2.jpg'], 1, 'LIG D&amp;A 세미나')" style="width:100%; aspect-ratio:4/3; margin:0; cursor:pointer;">
-                        <img src="images/Invited Talk_20261001_2.jpg" alt="LIG D&amp;A 세미나 2" style="width:100%; height:100%; object-fit:cover; border-radius:8px; display:block;">
+                        <img src="images/Invited Talk_20261001_2.jpg" alt="LIG D&amp;A 세미나 2" style="width:100%; height:100%; object-fit:cover; border-radius:6px; display:block;">
                         <span class="zoom-badge">🔍 2/2</span>
                     </div>
                 </div>
-                <!-- 설명 텍스트 영역 -->
-                <div style="width:100%;">
+                <!-- 우측 설명 텍스트 -->
+                <div style="flex:1;">
                     <p style="font-size:0.98rem; line-height:1.8; text-align:justify; margin:0;">
                         LIG Defence &amp; Aerospace (LIG D&amp;A, 구 LIG 넥스원) 정형진 수석님께서 본교 ARCS Lab. 오픈랩 행사에 참석하셔서 학생들에게 회사 소개 및 방산 산업에 대한 전반적인 발전 방향과 실무에서 필요한 역량 등에 대해 상세히 소개해주시는 시간을 가졌습니다. 정형진 수석님께서 귀한 시간 내주셔서 올해도 좋은 Open Lab. 행사가 되었던 것 같습니다.
                     </p>
@@ -1953,13 +1954,17 @@
             <p style="color:var(--text-muted); font-size:0.95rem;">25.11.26</p>
         </div>
 
+        <!-- [4] 삼성전자 세미나 (좌측 원복 이미지 및 클릭 확대 기능 유지) -->
         <div class="pub-item">
             <p style="text-align:justify;"><span class="pub-num">[4]</span> <span class="pub-title">삼성전자 현직자의 세미나 및 질의응답 시간 - Dr. Hyun-Gi Seok from Samsung Electronics S.LSI</span></p>
             <p class="pub-venue">2025 dept. of ITE, INU Open Lab Seminar</p>
             <p style="color:var(--text-muted); font-size:0.95rem;">25.09.30</p>
-            <div style="display:flex; flex-direction:column; gap:16px; margin-top:20px; background:#f8fafc; padding:18px; border-radius:14px; border:1px solid var(--border);">
-                <img src="images/New_connectivity_sol_Open_Lab_Seminar_1.jpg" alt="Open Lab Seminar" style="width:100%; border-radius:10px; display:block;" referrerpolicy="no-referrer">
-                <div>
+            <div style="display:flex; gap:24px; align-items:center; margin-top:20px; background:#f8fafc; padding:20px; border-radius:14px; border:1px solid var(--border);">
+                <div class="news-card-img-wrap" onclick="openImageModal(this.querySelector('img').src, '삼성전자 세미나')" style="width:36%; max-width:320px; flex-shrink:0; margin:0; cursor:pointer;">
+                    <img src="images/New_connectivity_sol_Open_Lab_Seminar_1.jpg" alt="Open Lab Seminar" style="width:100%; height:auto; border-radius:8px; display:block;" referrerpolicy="no-referrer">
+                    <span class="zoom-badge">🔍 클릭 확대</span>
+                </div>
+                <div style="flex:1;">
                     <p style="font-size:0.98rem; line-height:1.8; text-align:justify; margin:0;">
                         삼성전자 석현기 박사님께서 인천대학교 정보통신공학과 OPEN Lab. 행사에 참석해주셔서 학생들에게 귀감이 되는 얘기와 많은 조언들을 해주셨습니다.<br>
                         석현기 박사님께서 참석해주신 덕분에 더욱 더 뜻깊은 OPEN Lab. 행사가 될 수 있었던 것 같습니다.
