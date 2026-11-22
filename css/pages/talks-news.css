@@ -1,0 +1,51 @@
+/* talks-news.css : Invited Talks / News 공용 (project-theme) */
+.project-theme { background: transparent; border: 0; box-shadow: none; padding: 0; }
+.project-theme .sec-head { color: var(--primary); font-size: 1.35rem; font-weight: 850; letter-spacing: .02em; padding: 0; background: transparent; margin: 18px 0 14px; }
+.project-theme .sec-head::before { display: block; content: ""; width: 6px; height: 6px; flex: 0 0 6px; background: var(--dodger-blue); border-radius: 50%; }
+.project-theme .sec-head.spaced { margin-top: 34px; }
+.project-theme .pub-item {
+    position: relative; padding: 20px 22px 18px 22px; background: #ffffff;
+    border: 1.5px solid var(--border-card); border-radius: 14px; box-shadow: 0 5px 16px rgba(15,23,42,.055);
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    margin-top: 12px; word-break: keep-all; overflow-wrap: break-word;
+}
+.project-theme .pub-item + .pub-item { margin-top: 14px; }
+.project-theme .pub-item:hover { transform: translateY(-3px); border-color: #9bc9ff; box-shadow: 0 9px 22px rgba(30,144,255,.11); }
+.project-theme .pub-title { font-size: 1.08rem; font-weight: 800; color: var(--primary); line-height: 1.55; }
+.project-theme .pub-venue { font-size: .98rem; font-weight: 700; color: var(--text-main); margin-top: 8px; }
+.project-theme .pub-num { display: inline-block; color: var(--dodger-vivid); font-weight: 900; margin-right: 6px; }
+.project-theme .pub-date { color: var(--text-muted); font-size: 0.95rem; }
+.project-theme p.mt { margin-top: 12px; }
+
+#view-invited-talks, #view-news { word-break: keep-all; overflow-wrap: break-word; hyphens: auto; }
+#view-invited-talks > .view-title, #view-news > .view-title { text-align: left; }
+#view-invited-talks p, #view-news p { text-align: justify; }
+
+/* 뉴스 카드(텍스트 + 이미지) */
+.news-item-with-img { display: flex; gap: 24px; align-items: center; justify-content: space-between; }
+.news-item-with-img .news-text-wrap { flex: 1; }
+.news-card-img-wrap {
+    flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer;
+    position: relative; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--border);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03); transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.news-card-img-wrap:hover { transform: translateY(-2px); border-color: var(--dodger-blue); box-shadow: 0 4px 14px rgba(30,144,255,0.2); }
+.news-card-img { max-height: 170px; width: auto; max-width: 320px; display: block; object-fit: contain; background: #ffffff; }
+
+/* 세미나 사진 박스 (기존 인라인 style → 클래스) */
+.talk-photo-box { display: flex; gap: 24px; align-items: center; margin-top: 20px; background: #f8fafc; padding: 20px; border-radius: 14px; border: 1px solid var(--border); }
+.talk-photo-grid { width: 36%; max-width: 320px; flex-shrink: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.talk-photo-grid .news-card-img-wrap { width: 100%; aspect-ratio: 4/3; margin: 0; }
+.talk-photo-grid .news-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; display: block; }
+.talk-photo-single { width: 36%; max-width: 320px; flex-shrink: 0; margin: 0; }
+.talk-photo-single img { width: 100%; height: auto; border-radius: 8px; display: block; }
+.talk-photo-text { flex: 1; }
+.talk-photo-text p { font-size: 0.98rem; line-height: 1.8; text-align: justify; margin: 0; }
+
+@media (max-width: 900px) {
+    .news-item-with-img { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .news-card-img-wrap { width: 100%; max-width: 100%; }
+    .news-card-img { max-height: 220px; width: 100%; object-fit: contain; }
+    .talk-photo-box { flex-direction: column; align-items: flex-start; padding: 16px; }
+    .talk-photo-grid, .talk-photo-single { width: 100%; max-width: 100%; }
+}

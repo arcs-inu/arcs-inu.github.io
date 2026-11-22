@@ -1,0 +1,49 @@
+/* achievements.css : Publications / Patents / Project 공용 */
+.axis-pub-header { margin-bottom: 24px; }
+.axis-pub-meta { font-size: 1.05rem; color: var(--text-muted); margin-bottom: 16px; }
+.axis-pub-meta strong { color: var(--primary); font-size: 1.4rem; font-weight: 800; margin-right: 6px; }
+.axis-pub-meta .corr-note { color: #000000; font-size: 1.2rem; font-weight: 800; margin-right: 6px; }
+.axis-pub-meta .meta-note { color: #000000; font-weight: 700; }
+.axis-pub-meta .meta-note.blue { color: var(--dodger-vivid); }
+.view-title.left { text-align: left; margin-bottom: 12px; }
+.axis-filter-bar { display: flex; gap: 8px; margin-bottom: 30px; flex-wrap: wrap; }
+.axis-filter-btn {
+    padding: 6px 16px; border-radius: 20px; font-size: 0.9rem; font-weight: 700;
+    border: 1.5px solid var(--border); background: #ffffff; color: var(--text-muted);
+    cursor: pointer; transition: all 0.18s ease;
+}
+.axis-filter-btn.active { background: var(--dodger-blue); color: #ffffff; border-color: var(--dodger-blue); }
+
+.axis-year-row { display: grid; grid-template-columns: 100px 1fr; gap: 24px; margin-bottom: 36px; }
+.axis-year-label { font-size: 1.75rem; font-weight: 900; color: var(--dodger-vivid); line-height: 1.2; }
+.axis-year-label.small { font-size: 1.4rem; }
+.axis-cards-col { display: flex; flex-direction: column; gap: 14px; }
+.axis-cards-col.full { grid-column: 1 / -1; }
+
+.axis-item-card {
+    background: #ffffff; border: 1.5px solid var(--border-card); border-radius: 12px;
+    padding: 18px 22px; transition: all 0.2s ease; word-break: keep-all; overflow-wrap: break-word;
+}
+.axis-item-card:hover { border-color: var(--dodger-blue); transform: translateX(3px); box-shadow: 0 4px 16px rgba(30,144,255,0.08); }
+.axis-item-top { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap; }
+.axis-tag {
+    display: inline-block; padding: 2px 10px; font-size: 0.78rem; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.5px; border-radius: 6px;
+    color: var(--dodger-dark); background: var(--dodger-bg); border: 1.5px solid #bddbff;
+}
+.axis-item-num { font-weight: 800; color: var(--dodger-vivid); font-size: 1.05rem; }
+.axis-item-authors { font-size: 0.96rem; color: var(--text-main); font-weight: 500; }
+.axis-item-title { font-size: 1.08rem; font-weight: 800; color: var(--primary); line-height: 1.5; margin-bottom: 6px; }
+.axis-item-venue { font-size: 0.92rem; color: var(--text-muted); }
+.axis-item-venue a { color: var(--dodger-vivid); font-weight: 800; text-decoration: underline; margin-left: 6px; }
+
+@media (max-width: 900px) {
+    .axis-year-row { grid-template-columns: 1fr; gap: 10px; margin-bottom: 24px; }
+    .axis-year-label { font-size: 1.4rem; border-bottom: 2px solid var(--dodger-bg); padding-bottom: 4px; }
+    .axis-item-card { padding: 16px; }
+    .axis-item-title { font-size: 1rem; }
+}
+@media (max-width: 520px) {
+    .axis-filter-bar { gap: 6px; }
+    .axis-filter-btn { padding: 5px 12px; font-size: 0.82rem; }
+}

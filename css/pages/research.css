@@ -1,0 +1,6 @@
+/* research.css : Research 페이지 */
+.research-details { margin-top: 24px; text-align: left; }
+.research-details h4 { font-size: 1.12rem; font-weight: 800; color: var(--primary); margin-top: 18px; margin-bottom: 8px; }
+.research-details p { font-size: 0.98rem; color: var(--text-main); line-height: 1.7; text-align: justify; }
+.research-details ul { list-style-type: disc; padding-left: 20px; margin-top: 6px; }
+.research-details li { font-size: 0.96rem; color: var(--text-main); margin-bottom: 6px; line-height: 1.6; }

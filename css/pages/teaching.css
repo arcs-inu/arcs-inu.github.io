@@ -1,0 +1,8 @@
+/* teaching.css : Teaching 페이지 (아코디언) */
+details.teaching-box { border: 1.5px solid var(--border); border-radius: 12px; margin-bottom: 14px; background: #ffffff; overflow: hidden; }
+details.teaching-box summary { padding: 16px 20px; font-weight: 800; font-size: 1.12rem; cursor: pointer; background: #f8fafc; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+details.teaching-box summary::after { content: "▼"; font-size: 0.85rem; color: var(--dodger-blue); transition: transform 0.2s; }
+details[open].teaching-box summary { background: var(--dodger-bg); color: var(--dodger-dark); border-bottom: 1.5px solid #c7dcf8; }
+details[open].teaching-box summary::after { transform: rotate(180deg); }
+details.teaching-box .content { padding: 20px 24px; }
+details.teaching-box ul { padding-left: 20px; line-height: 2; list-style-type: square; }
