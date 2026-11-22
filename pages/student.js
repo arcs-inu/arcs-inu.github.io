@@ -57,7 +57,7 @@
 </div>
 <div class="divider"></div>
 <div class="profile-row">
-<img alt="Hansun Yu" class="profile-img" referrerpolicy="no-referrer" src="images/student_Hansun-Yu.jpg"/>
+<img alt="Hansun Yu" class="profile-img" referrerpolicy="no-referrer" src="images/student_hansun-yu.jpg"/>
 <div class="profile-info">
 <h3>Hansun Yu</h3>
 <p>Intern (Master’s Degree admission expected in 2029)</p>
