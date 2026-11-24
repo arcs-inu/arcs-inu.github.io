@@ -13,7 +13,7 @@
 </div>
 <p><a href="mailto:ghaenglee@inu.ac.kr" style="color:var(--primary); font-weight:700;">ghaenglee@inu.ac.kr</a></p>
 <p><strong>Assistant Professor</strong><br/>
-Dept. of Information and Telecommunication Engineering,<br/>
+Division of AI & ICT Engineering,<br/>
 Incheon National University</p>
 </div>
 </div>
@@ -41,7 +41,8 @@ Incheon National University</p>
 <span class="timeline-date">March. 2025 ~ Present</span>
 <span class="timeline-content">Assistant Professor</span>
 <span class="timeline-subtext">Incheon National University, Incheon, Republic of Korea</span>
-<span class="timeline-detail">- Dept. of Information and Telecommunication Engineering</span>
+<span class="timeline-detail">- Division of AI & ICT Engineering</span>
+<span class="timeline-detail">- (Former) Dept. of Information and Telecommunication Engineering</span>
 </div>
 <div class="timeline-item">
 <span class="timeline-date">March. 2023 ~ Feb. 2025</span>
